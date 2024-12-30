@@ -5,7 +5,7 @@ import prisma from "../db/db.config.js";
 export const createPost = async (req, resp) => {
   const { user_id, title, description } = req.body;
 
-  if (!user_id || !title || !description) {
+  if (!title || !description) {
     return resp.json({
       status: 400,
       message: "Enter the required field",
@@ -33,6 +33,19 @@ export const fetchAllPost = async(req, resp)=>{
   return resp.json({status:200, data:posts}
   )
 }
+
+// show perticular post comment
+export const showPost = async(req, resp)=>{
+  const postId = req.params.id;
+  const post = await prisma.comment.findFirst({
+    where:{
+      id:Number(postId),
+    },
+  })
+  
+  return resp.json({status:200, data:post});
+}
+
 
 // delete a post
 export const deletePost = async(req, resp)=>{
