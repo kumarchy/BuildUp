@@ -31,9 +31,9 @@ model Post {
   user_id     Int
   title       String
   description String
-  // techStack    String
-  // githubLink   String
-  // deployedLink String
+  techStack    String
+  githubLink   String
+  deployedLink String
   comment     Comment[]
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
