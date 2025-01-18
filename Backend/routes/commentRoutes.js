@@ -1,9 +1,12 @@
-import e from "express";
 import { Router } from "express";
-import { createComment, showPostComment} from "../controller/commentController.js";
+import {
+  createComment,
+  fetchAllComment,
+} from "../controller/commentController.js";
 
 const commentRouter = Router();
 
-commentRouter.post("/",createComment);
-commentRouter.get("/:post_id", showPostComment);
+commentRouter.post("/", createComment);
+commentRouter.get("/", fetchAllComment);
+
 export default commentRouter;
