@@ -7,11 +7,11 @@ const App = () => {
   const [showSignup, setShowSignup] = useState(false);
 
   return (
-   <div>
-    <Navbar setShowSignup={setShowSignup}/>
-    {showSignup && <Signup/>}
-    <Form />
-   </div>
+    <div>
+      <Navbar setShowSignup={setShowSignup} />
+      {showSignup && <Signup />}
+      <Form />
+    </div>
   );
 };
 
