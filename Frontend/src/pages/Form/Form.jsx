@@ -6,9 +6,9 @@ const Form = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    // techStack: "",
-    // githubLink: "",
-    // deployedLink: "",
+    techStack: "",
+    githubLink: "",
+    deployedLink: "",
   });
 
   // const handleFileDrop = (e) => {
@@ -52,10 +52,10 @@ const Form = () => {
       user_id: user.id, // Include user_id in the post data
       title: formData.title,
       description: formData.description,
-      // techStack: formData.techStack,
-      // githubLink: formData.githubLink,
-      // deployedLink: formData.deployedLink,
-      // image, // Include image if necessary
+      techStack: formData.techStack,
+      githubLink: formData.githubLink,
+      deployedLink: formData.deployedLink,
+      image, // Include image if necessary
     };
 
     try {
@@ -118,7 +118,7 @@ const Form = () => {
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
           />
-          {/* <input
+          <input
             type="text"
             name="techStack"
             value={formData.techStack}
@@ -141,7 +141,7 @@ const Form = () => {
             placeholder="Deployed Link"
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
-          /> */}
+          />
           <div>
             <button type="submit" className="border-[1px] p-2 bg-green-600">
               Submit
