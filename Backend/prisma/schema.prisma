@@ -13,37 +13,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User{
-  id Int @id @default(autoincrement())
-  name String?
-  email String @unique
-  password String?
-  post Post[]
-  comment Comment[]
+model User {
+  id         Int       @id @default(autoincrement())
+  name       String?
+  email      String    @unique
+  password   String?
+  post       Post[]
+  comment    Comment[]
   // status Boolean @default(true)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
 }
 
-model Post{
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_id Int
-  title String
+model Post {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id     Int
+  title       String
   description String
-  comment Comment[]
+  // techStack    String
+  // githubLink   String
+  // deployedLink String
+  comment     Comment[]
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+}
+
+model Comment {
+  id         String   @id @default(uuid())
+  post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  post_id    Int
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id    Int
+  comment    String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
-
-model Comment{
-  id String @id @default(uuid())
-  post Post @relation(fields: [post_id], references: [id], onDelete:Cascade)
-  post_id Int
-  user User @relation(fields: [user_id],references: [id], onDelete: Cascade)
-  user_id Int
-  comment String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-}
-
