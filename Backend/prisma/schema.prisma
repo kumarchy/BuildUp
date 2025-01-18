@@ -26,17 +26,17 @@ model User {
 }
 
 model Post {
-  id          Int       @id @default(autoincrement())
-  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_id     Int
-  title       String
-  description String
-  techStack    String
-  githubLink   String
-  deployedLink String
-  comment     Comment[]
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+  id           Int       @id @default(autoincrement())
+  user         User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id      Int
+  title        String
+  description  String
+  techStack    String?
+  githubLink   String?
+  deployedLink String?
+  comment      Comment[]
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
 }
 
 model Comment {
@@ -49,4 +49,3 @@ model Comment {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
-

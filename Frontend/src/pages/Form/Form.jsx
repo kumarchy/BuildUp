@@ -41,6 +41,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user || !user.id) {
@@ -55,7 +56,7 @@ const Form = () => {
       techStack: formData.techStack,
       githubLink: formData.githubLink,
       deployedLink: formData.deployedLink,
-      image, // Include image if necessary
+      // image, // Include image if necessary
     };
 
     try {
