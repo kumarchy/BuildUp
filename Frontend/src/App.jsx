@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar/Navbar";
-import Form from "./components/Form/Form";
+import Form from "./pages/Form/Form";
 import Signup from "./components/Signup/Signup";
 
 const App = () => {
