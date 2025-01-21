@@ -16,11 +16,12 @@ const PersonalProjects = () => {
   const handleDeleteClick = () => {
     setShowDeleteBox((prev) => !prev);
   };
+
   return (
     <div className="flex flex-col items-center dark:bg-zinc-900">
       <div className="md:w-[70%] w-[95%]">
-        <div className="flex gap-5  items-center mt-5 dark:bg-zinc-800 pt-8 pb-8">
-          <div className="flex justify-center items-center md:h-20 md:w-20 h-16 w-16   bg-purple-600 rounded-full text-4xl font-semibold text-white ml-5">
+        <div className="flex gap-5 items-center mt-5 dark:bg-zinc-800 pt-8 pb-8">
+          <div className="flex justify-center items-center md:h-20 md:w-20 h-16 w-16 bg-purple-600 rounded-full text-4xl font-semibold text-white ml-5">
             P
           </div>
           <h1 className="md:text-4xl font-bold text-white text-2xl">
@@ -28,7 +29,7 @@ const PersonalProjects = () => {
           </h1>
         </div>
         <div className="mt-8 flex justify-start flex-col gap-4">
-          {/* Box1 */}
+          {/* Projects */}
           {showPersonalPost &&
             showPersonalPost.map((project) => (
               <div
@@ -43,7 +44,7 @@ const PersonalProjects = () => {
                         <img
                           src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
                           alt="User"
-                          className="h-full w-full rounded-full object-cover  ring-2 ring-white dark:ring-zinc-700"
+                          className="h-full w-full rounded-full object-cover ring-2 ring-white dark:ring-zinc-700"
                         />
                       </div>
                       <div className="flex-1 space-y-4">
@@ -76,23 +77,22 @@ const PersonalProjects = () => {
 
                       <div className="h-px bg-zinc-200 dark:bg-zinc-700" />
 
-                      {/* all like dislike... box is */}
-
+                      {/* Action Buttons */}
                       <div className="flex items-center justify-between gap-2 w-full flex-nowrap overflow-hidden">
-                        <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700   transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                          <Heart className="h-4 w-4" />{" "}
+                        <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
+                          <Heart className="h-4 w-4" />
                           <span className="hidden sm:block">Like</span>
                         </button>
                         <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                          <ThumbsDown className="h-4 w-4" />{" "}
+                          <ThumbsDown className="h-4 w-4" />
                           <span className="hidden sm:block">Dislike</span>
                         </button>
                         <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                          <MessageCircle className="h-4 w-4" />{" "}
+                          <MessageCircle className="h-4 w-4" />
                           <span className="hidden sm:block">Comment</span>
                         </button>
                         <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                          <ExternalLink className="h-4 w-4" />{" "}
+                          <ExternalLink className="h-4 w-4" />
                           <span className="hidden sm:block">Visit</span>
                         </button>
                       </div>
@@ -101,10 +101,10 @@ const PersonalProjects = () => {
 
                   <FontAwesomeIcon
                     icon={faEllipsisV}
-                    className="text-white absolute top-6 sm:right-5 right-2  cursor-pointer text-xl"
+                    className="text-white absolute top-6 sm:right-5 right-2 cursor-pointer text-xl"
                     onClick={handleDeleteClick}
                   />
-                  {/*  delete box */}
+                  {/* Delete Confirmation */}
                   {showDeleteBox && (
                     <div className="absolute top-12 sm:right-5 right-2 bg-white dark:bg-zinc-700 rounded-lg shadow-lg p-4 z-50">
                       <p className="text-sm text-zinc-700 dark:text-zinc-300">
