@@ -6,9 +6,9 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 const PersonalProjects = () => {
   const [showDeleteBox, setShowDeleteBox] = useState(false);
 
-  const handleDeleteClick = ()=>{
-    setShowDeleteBox((prev) =>!prev);
-  }
+  const handleDeleteClick = () => {
+    setShowDeleteBox((prev) => !prev);
+  };
   return (
     <div className="flex flex-col items-center dark:bg-zinc-900">
       <div className="md:w-[70%] w-[95%]">
@@ -94,10 +94,10 @@ const PersonalProjects = () => {
               <FontAwesomeIcon
                 icon={faEllipsisV}
                 className="text-white absolute top-6 sm:right-5 right-2  cursor-pointer text-xl"
-                onClick={handleDeleteClick} 
+                onClick={handleDeleteClick}
               />
               {/*  delete box */}
-          {showDeleteBox && (
+              {showDeleteBox && (
                 <div className="absolute top-12 sm:right-5 right-2 bg-white dark:bg-zinc-700 rounded-lg shadow-lg p-4 z-50">
                   <p className="text-sm text-zinc-700 dark:text-zinc-300">
                     Are you sure you want to delete this project?
@@ -265,7 +265,6 @@ const PersonalProjects = () => {
               </section>
             </div>
           </div>
-
         </div>
       </div>
     </div>
