@@ -5,21 +5,23 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { StoreContext } from "../../context/storeContext";
 
 const PersonalProjects = () => {
-  const [showDeleteBox, setShowDeleteBox] = useState(false);
-  
-  const { showPersonalPost, showProjects, deleteProjects } = useContext(StoreContext);
+  const [deleteBoxVisibleFor, setDeleteBoxVisibleFor] = useState(null); // Store the ID of the post for which the delete box is visible
+
+  const { showPersonalPost, showProjects, deleteProjects } =
+    useContext(StoreContext);
 
   useEffect(() => {
     showProjects();
   }, [showProjects]);
 
-  const handleVerticleElipse = () => {
-    setShowDeleteBox((prev) => !prev);
+  const handleVerticleElipse = (id) => {
+    setDeleteBoxVisibleFor((prev) => (prev === id ? null : id)); // Toggle visibility for the specific post
   };
 
-  const handleDeleteClick = (projectId)=>{
+  const handleDeleteClick = (projectId) => {
     deleteProjects(projectId);
-  }
+    setDeleteBoxVisibleFor(null); // Close the delete box after deletion
+  };
 
   return (
     <div className="flex flex-col items-center dark:bg-zinc-900">
@@ -106,10 +108,10 @@ const PersonalProjects = () => {
                   <FontAwesomeIcon
                     icon={faEllipsisV}
                     className="text-white absolute top-6 sm:right-5 right-2 cursor-pointer text-xl"
-                    onClick={handleVerticleElipse}
+                    onClick={() => handleVerticleElipse(project.id)} // Pass the ID
                   />
                   {/* Delete Confirmation */}
-                  {showDeleteBox && (
+                  {deleteBoxVisibleFor === project.id && ( // Show only for the specific project
                     <div className="absolute top-12 sm:right-5 right-2 bg-white dark:bg-zinc-700 rounded-lg shadow-lg p-4 z-50">
                       <p className="text-sm text-zinc-700 dark:text-zinc-300">
                         Are you sure you want to delete this project?
@@ -117,13 +119,13 @@ const PersonalProjects = () => {
                       <div className="flex justify-end mt-3 gap-2">
                         <button
                           className="px-4 py-2 text-sm font-medium text-zinc-700 bg-zinc-200 rounded-lg hover:bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-300 dark:hover:bg-zinc-500"
-                          onClick={() => setShowDeleteBox(false)}
+                          onClick={() => setDeleteBoxVisibleFor(null)} // Close the delete box
                         >
                           Cancel
                         </button>
                         <button
                           className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
-                          onClick={() => handleDeleteClick(project.id)}
+                          onClick={() => handleDeleteClick(project.id)} // Handle deletion
                         >
                           Delete
                         </button>
