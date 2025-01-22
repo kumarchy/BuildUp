@@ -6,16 +6,20 @@ import { StoreContext } from "../../context/storeContext";
 
 const PersonalProjects = () => {
   const [showDeleteBox, setShowDeleteBox] = useState(false);
-
-  const { showPersonalPost, showProjects } = useContext(StoreContext);
+  
+  const { showPersonalPost, showProjects, deleteProjects } = useContext(StoreContext);
 
   useEffect(() => {
     showProjects();
   }, [showProjects]);
 
-  const handleDeleteClick = () => {
+  const handleVerticleElipse = () => {
     setShowDeleteBox((prev) => !prev);
   };
+
+  const handleDeleteClick = (projectId)=>{
+    deleteProjects(projectId);
+  }
 
   return (
     <div className="flex flex-col items-center dark:bg-zinc-900">
@@ -102,7 +106,7 @@ const PersonalProjects = () => {
                   <FontAwesomeIcon
                     icon={faEllipsisV}
                     className="text-white absolute top-6 sm:right-5 right-2 cursor-pointer text-xl"
-                    onClick={handleDeleteClick}
+                    onClick={handleVerticleElipse}
                   />
                   {/* Delete Confirmation */}
                   {showDeleteBox && (
@@ -119,10 +123,7 @@ const PersonalProjects = () => {
                         </button>
                         <button
                           className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
-                          onClick={() => {
-                            console.log("Project deleted!");
-                            setShowDeleteBox(false);
-                          }}
+                          onClick={() => handleDeleteClick(project.id)}
                         >
                           Delete
                         </button>
