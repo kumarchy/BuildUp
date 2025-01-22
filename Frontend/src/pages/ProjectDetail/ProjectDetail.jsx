@@ -1,8 +1,9 @@
 import React from "react";
 
 const ProjectDetail = () => {
+  
   return (
-    <div className="relative flex flex-col items-center">
+    <div className="relative flex flex-col items-center dark:bg-zinc-900 text-white">
       <div className="md:w-[70%] w-[95%]">
         <div className="flex items-center justify-center ">
         <div className="font-bold h-10 w-10 rounded-full bg-blue-500 flex justify-center items-center absolute text-2xl cursor-pointer lg:left-32 md:left-10 sm:top-7 left-3 ">
