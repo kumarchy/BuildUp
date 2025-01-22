@@ -7,7 +7,8 @@ const StoreContextProvider = (props) => {
   const [showPersonalPost, setShowPersonalPost] = useState("");
 
   const url="http://localhost:3000";
-
+  
+  // display user personal projects
   const showProjects = async() =>{
   try{
     const response = await axios.get(`${url}/api/post`)
@@ -19,9 +20,22 @@ const StoreContextProvider = (props) => {
   }
   }
 
+  // delete project
+  const deleteProjects = async({postId}) =>{
+    try{
+     const response = await axios.delete(`${url}/api/post/${postId}`);
+     if(response.data.success){
+      console.log("post deleted successfully");
+     }
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   const contextValue ={
   showPersonalPost,
-  showProjects
+  showProjects,
+  deleteProjects
   }
 
   return (
