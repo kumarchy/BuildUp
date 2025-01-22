@@ -13,8 +13,8 @@ const App = () => {
       {/* <Navbar setShowSignup={setShowSignup} />
       {showSignup && <Signup />} */}
       {/* <Form /> */}
-      {/* <ProjectDetail/> */}
-      <PersonalProjects/>
+      <ProjectDetail/>
+      {/* <PersonalProjects/> */}
     </div>
   );
 };
