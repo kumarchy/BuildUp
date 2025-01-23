@@ -22,17 +22,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  const projectDetails = async () => {
-    try {
-      const response = await axios.get(`${url}/api/post`);
-      if (response.data.success) {
-        setShowProjectDetail(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // Delete project
   const deleteProjects = async (postId) => {
     try {
