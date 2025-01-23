@@ -1,8 +1,6 @@
 import { Heart, MessageCircle, ThumbsDown, ExternalLink } from "lucide-react";
-import { useState } from "react";
-import Comment from "../Comment/comment";
+
 const Content = () => {
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
       {/* Box 1 */}
@@ -63,10 +61,7 @@ const Content = () => {
                   <ThumbsDown className="h-4 w-4" />{" "}
                   <span className="hidden sm:block">Dislike</span>
                 </button>
-                <button
-                  onClick={() => setIsCommentOpen(true)}
-                  className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700"
-                >
+                <button className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700">
                   <MessageCircle className="h-4 w-4" /> Comment
                 </button>
                 <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
@@ -76,10 +71,6 @@ const Content = () => {
               </div>
             </div>
           </section>
-          <Comment
-            isOpen={isCommentOpen}
-            onClose={() => setIsCommentOpen(false)}
-          />
         </div>
       </div>
 
