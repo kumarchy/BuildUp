@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Form from "./pages/Form/Form";
 import Signup from "./components/Signup/Signup";
@@ -10,14 +11,18 @@ const App = () => {
   const [showSignup, setShowSignup] = useState(false);
 
   return (
-    <div>
+    <Router>
       {/* <Navbar setShowSignup={setShowSignup} />
       {showSignup && <Signup />} */}
       {/* <Form /> */}
-      <ProjectDetail/>
+      <Routes>
+      <Route path="/" element={<ProjectDetail/>} />
+      <Route path="/personalProjects" element={<PersonalProjects/>}/>
+      </Routes>
+      {/* <ProjectDetail/> */}
       {/* <PersonalProjects/> */}
       {/* <Homepage/> */}
-    </div>
+    </Router>
   );
 };
 
