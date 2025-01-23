@@ -17,7 +17,7 @@ const App = () => {
       {/* <Form /> */}
       <Routes>
       <Route path="/" element={<ProjectDetail/>} />
-      <Route path="/personalProjects" element={<PersonalProjects/>}/>
+      <Route path="/:userId/personalProjects" element={<PersonalProjects/>}/>
       </Routes>
       {/* <ProjectDetail/> */}
       {/* <PersonalProjects/> */}
