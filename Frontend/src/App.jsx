@@ -15,8 +15,8 @@ const App = () => {
       {showSignup && <Signup />} */}
       {/* <Form /> */}
       {/* <ProjectDetail/> */}
-      {/* <PersonalProjects/> */}
-      <Homepage/>
+      <PersonalProjects/>
+      {/* <Homepage/> */}
     </div>
   );
 };
