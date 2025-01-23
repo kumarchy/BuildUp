@@ -22,17 +22,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  const fetchAllPosts = async () => {
-    try {
-      const response = await axios.get(`${url}/api/post`);
-      if (response.data.success) {
-        setShowAllPost(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // Delete project
   const deleteProjects = async (postId) => {
     try {
