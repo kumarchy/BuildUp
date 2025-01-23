@@ -5,7 +5,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [showPersonalPost, setShowPersonalPost] = useState("");
-  const [showProjectDetail, setShowProjectDetail] = useState("");
+  const [showAllPost, setShowAllPost] = useState("");
 
   const url = "http://localhost:3000";
 
@@ -16,6 +16,19 @@ const StoreContextProvider = (props) => {
       const response = await axios.get(`${url}/api/post`);
       if (response.data.success) {
         setShowPersonalPost(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Display all projects projects
+
+  const fetchAllPosts = async () => {
+    try {
+      const response = await axios.get(`${url}/api/post`);
+      if (response.data.success) {
+        setShowAllPost(response.data.data);
       }
     } catch (error) {
       console.log(error);
@@ -40,8 +53,8 @@ const StoreContextProvider = (props) => {
     showPersonalPost,
     showProjects,
     deleteProjects,
-    showProjectDetail,
-    projectDetails,
+    showAllPost,
+    fetchAllPosts,
   };
 
   return (
