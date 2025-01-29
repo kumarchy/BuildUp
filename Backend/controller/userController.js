@@ -1,11 +1,16 @@
-import e from "express";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import prisma from "../db/db.config.js";
 
-export const createUser = async (req, resp) => {
+// Secret key for JWT
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
+
+// Signup
+export const createUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
-    return resp.json({
+    return res.json({
       status: 400,
       message: "Enter the required credentials",
     });
@@ -18,50 +23,73 @@ export const createUser = async (req, resp) => {
   });
 
   if (findUser) {
-    return resp.json({
+    return res.json({
       status: 400,
-      message: "Email already available. Please enter another email",
+      message: "Email already exists. Please use another email.",
     });
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   const newUser = await prisma.user.create({
     data: {
-      name: name,
-      email: email,
-      password: password,
+      name,
+      email,
+      password: hashedPassword,
     },
   });
 
-  return resp.json({
+  return res.json({
     status: 200,
+    success: true,
     data: newUser,
-    message: "User created Successfully",
+    message: "User created successfully",
   });
 };
 
-// export const createUser = async (req, res) => {
-//   const { name, email, password } = req.body;
+// Login
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
 
-//   const findUser = await prisma.user.findUnique({
-//     where: {
-//       email: email,
-//     },
-//   });
+  if (!email || !password) {
+    return res.json({
+      status: 400,
+      message: "Enter the required credentials",
+    });
+  }
 
-//   if (findUser) {
-//     return res.json({
-//       status: 400,
-//       message: "Email Already Taken . please another email.",
-//     });
-//   }
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
 
-//   const newUser = await prisma.user.create({
-//     data: {
-//       name: name,
-//       email: email,
-//       password: password,
-//     },
-//   });
+  if (!user) {
+    return res.json({
+      status: 404,
+      message: "User not found",
+    });
+  }
 
-//   return res.json({ status: 200, data: newUser, msg: "User created." });
-// };
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    return res.json({
+      status: 401,
+      message: "Invalid credentials",
+    });
+  }
+
+  const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: "1h" });
+
+  return res.json({
+    status: 200,
+    success: true,
+    data: {
+      token,
+      user: { id: user.id, name: user.name, email: user.email },
+    },
+    message: "Login successful",
+  });
+};
+
