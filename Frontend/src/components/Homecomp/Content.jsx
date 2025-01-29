@@ -1,12 +1,13 @@
 import { Heart, MessageCircle, ThumbsDown, ExternalLink } from "lucide-react";
+import { useContext, useEffect } from "react";
+import { StoreContext } from "../context/StoreContext";
 
 const Content = () => {
-  const { showPersonalPost, showProjects } =
-  useContext(StoreContext);
+  const { showPersonalPost, showProjects } = useContext(StoreContext);
 
-useEffect(() => {
-  showProjects();
-}, [showProjects]);
+  useEffect(() => {
+    showProjects();
+  }, [showProjects]);
 
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
