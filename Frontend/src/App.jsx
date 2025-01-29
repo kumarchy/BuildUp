@@ -15,12 +15,12 @@ const App = () => {
       <Navbar setShowSignup={setShowSignup} />
       {showSignup && <Signup />}
       <Routes>
-      {/* <Route path="/" element={<Homepage />} /> */}
+      <Route path="/" element={<Homepage />} />
       <Route path="/" element={<ProjectDetail/>} />
       <Route path="/:userId/personalProjects" element={<PersonalProjects/>}/>
       {/* <ProjectDetail/> */}
       {/* <PersonalProjects/> */}
-      <Route path="/form" element={<Form/>}/>
+      {/* <Route path="/form" element={<Form/>}/> */}
       </Routes>
     </Router>
   );
