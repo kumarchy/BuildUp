@@ -12,16 +12,15 @@ const App = () => {
 
   return (
     <Router>
-      {/* <Navbar setShowSignup={setShowSignup} />
-      {showSignup && <Signup />} */}
-      {/* <Form /> */}
+      <Navbar setShowSignup={setShowSignup} />
+      {showSignup && <Signup />}
       <Routes>
-      <Route path="/" element={<Homepage />} />
+      {/* <Route path="/" element={<Homepage />} /> */}
       <Route path="/" element={<ProjectDetail/>} />
       <Route path="/:userId/personalProjects" element={<PersonalProjects/>}/>
-      {/* </Routes> */}
       {/* <ProjectDetail/> */}
       {/* <PersonalProjects/> */}
+      <Route path="/form" element={<Form/>}/>
       </Routes>
     </Router>
   );
