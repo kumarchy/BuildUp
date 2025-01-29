@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, User, Menu, X } from 'lucide-react';
 import Profile from '../Profile/Profile';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({setShowSignup}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,12 +30,12 @@ const Navbar = ({setShowSignup}) => {
             >
               Projects
             </a>
-            <a
-              href="/services"
+            <Link
+              to="/form"
               className="flex items-center justify-center text-white border-b-2 border-transparent hover:border-white transition-all duration-200"
             >
               <span className="text-2xl">+</span> AddProject
-            </a>
+            </Link>
           </div>
 
           {/* Search and Profile */}
