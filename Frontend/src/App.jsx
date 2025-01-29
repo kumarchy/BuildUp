@@ -16,12 +16,13 @@ const App = () => {
       {showSignup && <Signup />} */}
       {/* <Form /> */}
       <Routes>
+      <Route path="/" element={<Homepage />} />
       <Route path="/" element={<ProjectDetail/>} />
       <Route path="/:userId/personalProjects" element={<PersonalProjects/>}/>
-      </Routes>
+      {/* </Routes> */}
       {/* <ProjectDetail/> */}
       {/* <PersonalProjects/> */}
-      {/* <Homepage/> */}
+      </Routes>
     </Router>
   );
 };
