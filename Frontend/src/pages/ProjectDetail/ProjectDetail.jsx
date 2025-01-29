@@ -6,7 +6,7 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const handleUserProjectsClick = () => {
     if (user && user.id) {
-      navigate(`/${user.id}/projects`);
+      navigate(`/${user.id}/personalProjects`);
     } else {
       console.log("User ID not found");
     }
