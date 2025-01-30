@@ -35,8 +35,6 @@ const StoreContextProvider = (props) => {
     }
   };
 
-
-
   // Delete project
   const deleteProjects = async (postId) => {
     try {

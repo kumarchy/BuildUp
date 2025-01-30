@@ -5,16 +5,22 @@ import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import { StoreContext } from "../../context/storeContext";
 
 const PersonalProjects = () => {
-  const [showDeleteBox, setShowDeleteBox] = useState(false);
+  const [deleteBoxVisibleFor, setDeleteBoxVisibleFor] = useState(null); // Store the ID of the post for which the delete box is visible
 
-  const { showPersonalPost, showProjects } = useContext(StoreContext);
+  const { showPersonalPost, showProjects, deleteProjects } =
+    useContext(StoreContext);
 
   useEffect(() => {
     showProjects();
   }, [showProjects]);
 
-  const handleDeleteClick = () => {
-    setShowDeleteBox((prev) => !prev);
+  const handleVerticleElipse = (id) => {
+    setDeleteBoxVisibleFor((prev) => (prev === id ? null : id)); // Toggle visibility for the specific post
+  };
+
+  const handleDeleteClick = (projectId) => {
+    deleteProjects(projectId);
+    setDeleteBoxVisibleFor(null); // Close the delete box after deletion
   };
 
   return (
@@ -40,13 +46,6 @@ const PersonalProjects = () => {
                   {/* Left Section */}
                   <section className="w-full md:w-[55%] p-6">
                     <div className="flex items-start gap-4">
-                      <div className="relative h-7 w-7 sm:h-10 sm:w-10 shrink-0">
-                        <img
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
-                          alt="User"
-                          className="h-full w-full rounded-full object-cover ring-2 ring-white dark:ring-zinc-700"
-                        />
-                      </div>
                       <div className="flex-1 space-y-4">
                         <div className="h-64 md:h-80 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-700">
                           <img
@@ -91,10 +90,6 @@ const PersonalProjects = () => {
                           <MessageCircle className="h-4 w-4" />
                           <span className="hidden sm:block">Comment</span>
                         </button>
-                        <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                          <ExternalLink className="h-4 w-4" />
-                          <span className="hidden sm:block">Visit</span>
-                        </button>
                       </div>
                     </div>
                   </section>
@@ -102,10 +97,10 @@ const PersonalProjects = () => {
                   <FontAwesomeIcon
                     icon={faEllipsisV}
                     className="text-white absolute top-6 sm:right-5 right-2 cursor-pointer text-xl"
-                    onClick={handleDeleteClick}
+                    onClick={() => handleVerticleElipse(project.id)} // Pass the ID
                   />
                   {/* Delete Confirmation */}
-                  {showDeleteBox && (
+                  {deleteBoxVisibleFor === project.id && ( // Show only for the specific project
                     <div className="absolute top-12 sm:right-5 right-2 bg-white dark:bg-zinc-700 rounded-lg shadow-lg p-4 z-50">
                       <p className="text-sm text-zinc-700 dark:text-zinc-300">
                         Are you sure you want to delete this project?
@@ -113,16 +108,13 @@ const PersonalProjects = () => {
                       <div className="flex justify-end mt-3 gap-2">
                         <button
                           className="px-4 py-2 text-sm font-medium text-zinc-700 bg-zinc-200 rounded-lg hover:bg-zinc-300 dark:bg-zinc-600 dark:text-zinc-300 dark:hover:bg-zinc-500"
-                          onClick={() => setShowDeleteBox(false)}
+                          onClick={() => setDeleteBoxVisibleFor(null)} // Close the delete box
                         >
                           Cancel
                         </button>
                         <button
                           className="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
-                          onClick={() => {
-                            console.log("Project deleted!");
-                            setShowDeleteBox(false);
-                          }}
+                          onClick={() => handleDeleteClick(project.id)} // Handle deletion
                         >
                           Delete
                         </button>
