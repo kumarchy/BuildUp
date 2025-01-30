@@ -4,11 +4,11 @@ import { StoreContext } from "../../context/storeContext";
 import { useNavigate, Link } from "react-router-dom";
 
 const Content = () => {
-  const { showPersonalPost, showProjects } = useContext(StoreContext);
+  const { showAllPost, fetchAllPosts } = useContext(StoreContext);
 
   useEffect(() => {
-    showProjects();
-  }, [showProjects]);
+    fetchAllPosts();
+  }, [fetchAllPosts]);
 
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
@@ -23,8 +23,8 @@ const Content = () => {
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
       {/* Projects */}
-      {showPersonalPost &&
-        showPersonalPost.map((project) => (
+      {showAllPost &&
+        showAllPost.map((project) => (
           <div
             key={project.id}
             className="mx-auto max-w-5xl w-[100%] overflow-hidden rounded-2xl bg-white shadow-xl dark:bg-zinc-800"
