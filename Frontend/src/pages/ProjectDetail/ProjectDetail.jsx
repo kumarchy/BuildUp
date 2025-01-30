@@ -1,23 +1,36 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProjectDetail = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  const handleUserProjectsClick = () => {
+    if (user && user.id) {
+      navigate(`/${user.id}/personalProjects`);
+    } else {
+      console.log("User ID not found");
+    }
+  };
   return (
-    <div className="relative flex flex-col items-center">
+    <div className="relative flex flex-col items-center dark:bg-zinc-900 text-white">
       <div className="md:w-[70%] w-[95%]">
         <div className="flex items-center justify-center ">
-        <div className="font-bold h-10 w-10 rounded-full bg-blue-500 flex justify-center items-center absolute text-2xl cursor-pointer lg:left-32 md:left-10 sm:top-7 left-3 ">
-        k
-        </div>
-        <h1 className="sm:text-5xl text-2xl sm:font-bold font-bold mb-3 mt-5">
-          Enjoy with coffee
-        </h1>
+          <div
+            className="font-bold h-10 w-10 rounded-full bg-blue-500 flex justify-center items-center absolute text-2xl cursor-pointer lg:left-32 md:left-10 sm:top-7 left-3 "
+            onClick={handleUserProjectsClick}
+          >
+            k
+          </div>
+          <h1 className="sm:text-5xl text-2xl sm:font-bold font-bold mb-3 mt-5">
+            Enjoy with coffee
+          </h1>
         </div>
         <div>
           <img src="/frontend coffee webpage.png" alt="Coffee Webpage" />
         </div>
         <div className="flex gap-5 m">
-        <p>likes</p>
-        <p>comments</p>
+          <p>likes</p>
+          <p>comments</p>
         </div>
         <div className="mt-4">
           <h1 className="text-lg font-semibold">Project Description</h1>
