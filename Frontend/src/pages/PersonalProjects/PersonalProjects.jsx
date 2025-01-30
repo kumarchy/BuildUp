@@ -2,17 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { Heart, MessageCircle, ThumbsDown, ExternalLink } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
+import { useParams } from "react-router-dom";
 import { StoreContext } from "../../context/storeContext";
 
 const PersonalProjects = () => {
-  const [deleteBoxVisibleFor, setDeleteBoxVisibleFor] = useState(null); // Store the ID of the post for which the delete box is visible
-
+  const [deleteBoxVisibleFor, setDeleteBoxVisibleFor] = useState(null); 
+  
+  const { userId } = useParams();
+  
   const { showPersonalPost, showProjects, deleteProjects } =
     useContext(StoreContext);
 
-  useEffect(() => {
-    showProjects();
-  }, [showProjects]);
+    useEffect(() => {
+      if (userId) {
+        showProjects(userId); // Fetch only projects for this user
+      }
+    }, [userId, showProjects]);
 
   const handleVerticleElipse = (id) => {
     setDeleteBoxVisibleFor((prev) => (prev === id ? null : id)); // Toggle visibility for the specific post
@@ -25,6 +30,7 @@ const PersonalProjects = () => {
 
   return (
     <div className="flex flex-col items-center dark:bg-zinc-900">
+      <h1>User ID: {userId}</h1>
       <div className="md:w-[70%] w-[95%]">
         <div className="flex gap-5 items-center mt-5 dark:bg-zinc-800 pt-8 pb-8">
           <div className="flex justify-center items-center md:h-20 md:w-20 h-16 w-16 bg-purple-600 rounded-full text-4xl font-semibold text-white ml-5">
