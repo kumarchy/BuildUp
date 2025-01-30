@@ -1,6 +1,6 @@
 import { Heart, MessageCircle, ThumbsDown, ExternalLink } from "lucide-react";
 import { useContext, useEffect } from "react";
-import { StoreContext } from "../context/StoreContext";
+import { StoreContext } from "../../context/storeContext";
 
 const Content = () => {
   const { showPersonalPost, showProjects } = useContext(StoreContext);
