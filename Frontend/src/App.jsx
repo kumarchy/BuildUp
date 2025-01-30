@@ -16,7 +16,7 @@ const App = () => {
       {showSignup && <Signup />}
       <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/" element={<ProjectDetail/>} />
+      <Route path="/projectDetail" element={<ProjectDetail/>} />
       <Route path="/:userId/personalProjects" element={<PersonalProjects/>}/>
       {/* <ProjectDetail/> */}
       {/* <PersonalProjects/> */}
