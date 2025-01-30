@@ -15,7 +15,7 @@ const App = () => {
       <Navbar setShowSignup={setShowSignup} />
       {showSignup && <Signup />}
       <Routes>
-      <Route path="/:userId" element={<Homepage />} />
+      <Route path="/" element={<Homepage />} />
       <Route path="/" element={<ProjectDetail/>} />
       <Route path="/:userId/personalProjects" element={<PersonalProjects/>}/>
       {/* <ProjectDetail/> */}
