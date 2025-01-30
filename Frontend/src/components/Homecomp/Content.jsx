@@ -1,6 +1,7 @@
 import { Heart, MessageCircle, ThumbsDown, ExternalLink } from "lucide-react";
 import { useContext, useEffect } from "react";
 import { StoreContext } from "../../context/storeContext";
+import { useNavigate } from "react-router-dom";
 
 const Content = () => {
   const { showPersonalPost, showProjects } = useContext(StoreContext);
@@ -8,6 +9,16 @@ const Content = () => {
   useEffect(() => {
     showProjects();
   }, [showProjects]);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const navigate = useNavigate();
+  const handleUserProjectsClick = () => {
+    if (user && user.id) {
+      navigate(`/${user.id}/`);
+    } else {
+      console.log("User ID not found");
+    }
+  };
 
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
@@ -23,11 +34,12 @@ const Content = () => {
               <section className="w-full md:w-[55%] p-6">
                 <div className="flex items-start gap-4">
                   <div className="relative h-7 w-7 sm:h-10 sm:w-10 shrink-0">
-                    <img
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
-                      alt="User"
-                      className="h-full w-full rounded-full object-cover ring-2 ring-white dark:ring-zinc-700"
-                    />
+                    <div
+                      className="h-full w-full flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
+                      onClick={handleUserProjectsClick}
+                    >
+                      k
+                    </div>
                   </div>
                   <div className="flex-1 space-y-4">
                     <div className="h-64 md:h-80 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-700">
