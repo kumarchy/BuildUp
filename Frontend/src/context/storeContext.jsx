@@ -15,6 +15,7 @@ const StoreContextProvider = (props) => {
     console.log(`userid of post: ${userId}`);
     try {
       const response = await axios.get(`${url}/api/post/${userId}`);
+      console.log("API Response:", response.data);
       if (response.data.success) {
         setShowPersonalPost(response.data.data);
       }
