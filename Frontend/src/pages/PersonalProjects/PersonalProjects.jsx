@@ -15,17 +15,19 @@ const PersonalProjects = () => {
 
     useEffect(() => {
       if (userId) {
-        showProjects(userId); // Fetch only projects for this user
+        if (!showPersonalPost.length) {
+          showProjects(userId); 
+        }
       }
-    }, [userId, showProjects]);
+    }, [userId, showProjects, showPersonalPost.length]);
 
   const handleVerticleElipse = (id) => {
-    setDeleteBoxVisibleFor((prev) => (prev === id ? null : id)); // Toggle visibility for the specific post
+    setDeleteBoxVisibleFor((prev) => (prev === id ? null : id)); 
   };
 
   const handleDeleteClick = (projectId) => {
     deleteProjects(projectId);
-    setDeleteBoxVisibleFor(null); // Close the delete box after deletion
+    setDeleteBoxVisibleFor(null); 
   };
 
   return (
