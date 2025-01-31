@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from "react";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-  const [showPersonalPost, setShowPersonalPost] = useState("");
+  const [showPersonalPost, setShowPersonalPost] = useState([]);
   const [showAllPost, setShowAllPost] = useState("");
 
   const url = "http://localhost:3000";
