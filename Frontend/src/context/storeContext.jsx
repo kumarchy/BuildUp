@@ -12,11 +12,9 @@ const StoreContextProvider = (props) => {
   // Display user personal projects
 
   const showProjects = async (userId) => {
-    console.log(`userid of post: ${userId}`);
     try {
       const response = await axios.get(`${url}/api/post/${userId}`);
-      console.log("API Response:", response.data);
-      if (response.data.success) {
+      if (response.data.success && Array.isArray(response.data.data)) {
         setShowPersonalPost(response.data.data);
       }
     } catch (error) {
