@@ -10,17 +10,8 @@ const Content = () => {
     fetchAllPosts();
   }, [fetchAllPosts]);
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-  // const navigate = useNavigate();
-  // const handleUserProjectsClick = () => {
-  //   if (user && user.id) {
-  //     navigate(`/personalProjects/${user.id}`);
-  //   } else {
-  //     console.log("User ID not found");
-  //   }
-  // };
-
   const navigate = useNavigate();
+  
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
       {/* Projects */}
@@ -37,9 +28,9 @@ const Content = () => {
                   <div className="relative h-7 w-7 sm:h-10 sm:w-10 shrink-0">
                     <div
                       className="h-full w-full flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
-                      onClick={() => navigate(`/personalProjects/${project.user_Id}`)}
+                      onClick={() => navigate(`/personalProjects/${project.user_id}`)}
                     >
-                      k
+                     {project.userInitial || "U"}
                     </div>
                   </div>
                   <div className="flex-1 space-y-4">
