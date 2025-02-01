@@ -84,6 +84,22 @@ export const showPost = async (req, resp) => {
       where: {
         user_id: Number(user_id),
       },
+      include: {
+        user:{
+          select:{
+          name:true,
+          },
+        },
+        comment: {
+          include: {
+            user: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (posts.length === 0) {
