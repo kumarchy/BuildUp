@@ -1,28 +1,44 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams} from "react-router-dom";
+import { StoreContext } from "../../context/storeContext";
 
 const ProjectDetail = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const navigate = useNavigate();
-  const handleUserProjectsClick = () => {
-    if (user && user.id) {
-      navigate(`/${user.id}/personalProjects`);
-    } else {
-      console.log("User ID not found");
+  const { projectId } = useParams();
+  const {showAllPost} = useContext(StoreContext);
+  const [project, setProject] = useState(null);
+
+  useEffect(()=>{
+    if(showAllPost){
+      const selectedProject  = showAllPost.find((p)=> p.id==projectId);
+      setProject(selectedProject)
     }
-  };
+  },[showAllPost,projectId]);
+
+  if(!project){
+    return <div className="text-white">Loading...</div>
+  }
+
+  // const user = JSON.parse(localStorage.getItem("user"));
+  // const navigate = useNavigate();
+  // const handleUserProjectsClick = () => {
+  //   if (user && user.id) {
+  //     navigate(`/${user.id}/personalProjects`);
+  //   } else {
+  //     console.log("User ID not found");
+  //   }
+  // };
+
   return (
     <div className="relative flex flex-col items-center dark:bg-zinc-900 text-white">
       <div className="md:w-[70%] w-[95%]">
         <div className="flex items-center justify-center ">
           <div
             className="font-bold h-10 w-10 rounded-full bg-blue-500 flex justify-center items-center absolute text-2xl cursor-pointer lg:left-32 md:left-10 sm:top-7 left-3 "
-            onClick={handleUserProjectsClick}
           >
             k
           </div>
           <h1 className="sm:text-5xl text-2xl sm:font-bold font-bold mb-3 mt-5">
-            Enjoy with coffee
+            {project.title}
           </h1>
         </div>
         <div>
@@ -35,34 +51,14 @@ const ProjectDetail = () => {
         <div className="mt-4">
           <h1 className="text-lg font-semibold">Project Description</h1>
           <p>
-            The Coffee Website is a fully responsive and visually engaging web
-            application built using React.js. It is designed to showcase a
-            coffee shop's offerings in an appealing and user-friendly manner.
-            The project emphasizes modern web design principles, seamless
-            navigation, and an interactive user experience.
-          </p>
-          <p>
-            Features: Dynamic Content Rendering: Leveraging React.js, the
-            website dynamically renders content for a smooth and fast user
-            experience without the need for page reloads. Responsive Design: The
-            website is fully responsive, ensuring optimal viewing across devices
-            of all sizes, from desktops to tablets and smartphones. Interactive
-            User Interface: A visually appealing interface with elements like
-            hover effects, transitions, and interactive menus that engage users.
-            Image Showcase: High-quality images of coffee products are displayed
-            prominently, highlighting the shop’s offerings with smooth alignment
-            and responsive scaling. Navigation Bar: A functional and responsive
-            navigation bar enables users to explore different sections of the
-            website effortlessly. Custom Styling with Tailwind CSS: The project
-            uses Tailwind CSS for consistent, scalable, and modern styling,
-            ensuring clean and reusable code.
+            {project.description}
           </p>
           <div className="mt-4">
             <h1 className="text-lg font-semibold">Tech stack</h1>
             <ul className="sm:gap-8 gap-5 list-disc ml-6">
-              <li>React.js</li>
-              <li>JavaScript</li>
-              <li>Tailwind CSS</li>
+              {project.techStack.map((stack)=>{
+                <li key={stack.id}>{stack}</li>
+              })}
             </ul>
           </div>
 
@@ -79,24 +75,24 @@ const ProjectDetail = () => {
           <div className="mt-4">
             <h1 className="text-lg font-semibold">Visit Website</h1>
             <a
-              href="https://github.com/kumarchy/BuildUp/tree/main/Frontend/src"
+              href={`${project.deployedLink}`}
               target="_blank"
               rel="noopener noreferrer"
               className="underline text-blue-600"
             >
-              https://github.com/kumarchy/BuildUp/tree/main/Frontend/src
+              {project.deployedLink}
             </a>
           </div>
 
           <div className="mt-4 pb-16">
             <h1 className="text-lg font-semibold">Visit Github Repository</h1>
             <a
-              href="https://github.com/kumarchy/BuildUp/tree/main/Frontend/src"
+              href={`${project.githubLink}`}
               target="_blank"
               rel="noopener noreferrer"
               className="underline text-blue-600"
             >
-              https://github.com/kumarchy/BuildUp/tree/main/Frontend/src
+              {project.githubLink}
             </a>
           </div>
         </div>
