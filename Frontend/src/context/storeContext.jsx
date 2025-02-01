@@ -5,7 +5,7 @@ export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
   const [showPersonalPost, setShowPersonalPost] = useState([]);
-  const [showAllPost, setShowAllPost] = useState([]);
+  const [showAllPost, setShowAllPost] = useState("");
 
   const url = "http://localhost:3000";
 
@@ -27,7 +27,7 @@ const StoreContextProvider = (props) => {
   const fetchAllPosts = async () => {
     try {
       const response = await axios.get(`${url}/api/post`);
-      if (Array.isArray(response.data.data)) {
+      if (response.data.success) {
         setShowAllPost(response.data.data);
       }
     } catch (error) {
