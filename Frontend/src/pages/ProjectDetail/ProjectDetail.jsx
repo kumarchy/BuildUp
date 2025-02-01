@@ -30,6 +30,10 @@ const ProjectDetail = () => {
   //   }
   // };
 
+  const techStackArray = project.techStack
+    ? project.techStack.split(",").map((tech) => tech.trim())
+    : [];
+
   return (
     <div className="relative flex flex-col items-center dark:bg-zinc-900 text-white">
       <div className="md:w-[70%] w-[95%]">
@@ -54,9 +58,11 @@ const ProjectDetail = () => {
           <div className="mt-4">
             <h1 className="text-lg font-semibold">Tech stack</h1>
             <ul className="sm:gap-8 gap-5 list-disc ml-6">
-              {project.techStack?.map((stack, index) => {
-                <li key={index}>{stack}</li>;
-              })}
+              {techStackArray.length > 0 ? (
+                techStackArray.map((tech, index) => <li key={index}>{tech}</li>)
+              ) : (
+                <p>No tech stack available</p>
+              )}
             </ul>
           </div>
 
