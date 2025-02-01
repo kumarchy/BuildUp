@@ -3,7 +3,8 @@ import prisma from "../db/db.config.js";
 
 // create a post
 export const createPost = async (req, resp) => {
-  const { user_id, title, description, techStack, githubLink, deployedLink } = req.body;
+  const { user_id, title, description, techStack, githubLink, deployedLink } =
+    req.body;
 
   if (!title || !description || !techStack || !githubLink || !deployedLink) {
     return resp.json({
@@ -19,9 +20,9 @@ export const createPost = async (req, resp) => {
         user_id: Number(user_id),
         title: title,
         description: description,
-        techStack:techStack,
-        githubLink:githubLink,
-        deployedLink:deployedLink
+        techStack: techStack,
+        githubLink: githubLink,
+        deployedLink: deployedLink,
       },
     });
 
@@ -44,8 +45,26 @@ export const createPost = async (req, resp) => {
 
 // fetch all post
 export const fetchAllPost = async (req, resp) => {
-  const posts = await prisma.post.findMany();
   try {
+    const posts = await prisma.post.findMany({
+      include: {
+        user:{
+          select:{
+          name:true,
+          },
+        },
+        comment: {
+          include: {
+            user: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
     return resp.json({ status: 200, success: true, data: posts });
   } catch (error) {
     console.error(error);
