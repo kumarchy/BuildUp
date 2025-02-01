@@ -7,8 +7,10 @@ const Content = () => {
   const { showAllPost, fetchAllPosts } = useContext(StoreContext);
 
   useEffect(() => {
-    fetchAllPosts();
-  }, [fetchAllPosts]);
+    if(!showAllPost){
+      fetchAllPosts();
+    }
+  }, [showAllPost,fetchAllPosts]);
 
   const navigate = useNavigate();
   
