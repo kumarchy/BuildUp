@@ -38,12 +38,10 @@ const ProjectDetail = () => {
     <div className="relative flex flex-col items-center dark:bg-zinc-900 text-white">
       <div className="md:w-[70%] w-[95%]">
         <div className="flex items-center justify-center ">
-          <div className="font-bold h-10 w-10 rounded-full bg-blue-500 flex justify-center items-center absolute text-2xl cursor-pointer lg:left-32 md:left-10 sm:top-7 left-3 ">
-            k
-          </div>
           <h1 className="sm:text-5xl text-2xl sm:font-bold font-bold mb-3 mt-5">
             {project.title}
           </h1>
+          <p className="text-white">Posted by {project.user?.name}</p>
         </div>
         <div>
           <img src="/frontend coffee webpage.png" alt="Coffee Webpage" />
