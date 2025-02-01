@@ -32,16 +32,17 @@ const PersonalProjects = () => {
 
   return (
     <div className="flex flex-col items-center dark:bg-zinc-900">
-      <h1>User ID: {userId}</h1>
       <div className="md:w-[70%] w-[95%]">
+      {showPersonalPost.length > 0 && (
         <div className="flex gap-5 items-center mt-5 dark:bg-zinc-800 pt-8 pb-8">
           <div className="flex justify-center items-center md:h-20 md:w-20 h-16 w-16 bg-purple-600 rounded-full text-4xl font-semibold text-white ml-5">
-            P
+            {showPersonalPost[0]?.user?.name?.charAt(0).toUpperCase() || "U"}
           </div>
           <h1 className="md:text-4xl font-bold text-white text-2xl">
-            Pranit More Marathi
+            {showPersonalPost[0]?.user?.name || "Unknown User"}
           </h1>
         </div>
+      )}
         <div className="mt-8 flex justify-start flex-col gap-4">
           {/* Projects */}
           {showPersonalPost &&
