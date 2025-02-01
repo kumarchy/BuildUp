@@ -32,7 +32,7 @@ const Content = () => {
                       className="h-full w-full flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
                       onClick={() => navigate(`/personalProjects/${project.user_id}`)}
                     >
-                     {project.userInitial || "U"}
+                     {project.user?.name?.charAt(0).toUpperCase() || "U"}
                     </div>
                   </div>
                   <div className="flex-1 space-y-4">
