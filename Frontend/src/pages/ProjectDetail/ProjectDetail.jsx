@@ -39,7 +39,6 @@ const ProjectDetail = () => {
           <p>likes</p>
           <p>comments</p>
         </div>
-        <p className="text-white">Posted by : {project.user?.name}</p>
         <div className="mt-4">
           <h1 className="text-lg font-semibold">Project Description</h1>
           <p>{project.description}</p>
