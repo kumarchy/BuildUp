@@ -20,16 +20,6 @@ const ProjectDetail = () => {
     return <div className="text-white">Loading...</div>;
   }
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-  // const navigate = useNavigate();
-  // const handleUserProjectsClick = () => {
-  //   if (user && user.id) {
-  //     navigate(`/${user.id}/personalProjects`);
-  //   } else {
-  //     console.log("User ID not found");
-  //   }
-  // };
-
   const techStackArray = project.techStack
     ? project.techStack.split(",").map((tech) => tech.trim())
     : [];
@@ -37,11 +27,10 @@ const ProjectDetail = () => {
   return (
     <div className="relative flex flex-col items-center dark:bg-zinc-900 text-white">
       <div className="md:w-[70%] w-[95%]">
-        <div className="flex items-center justify-center ">
-          <h1 className="sm:text-5xl text-2xl sm:font-bold font-bold mb-3 mt-5">
+        <div className="flex items-center gap-5 mb-2 mt-3">
+          <h1 className="sm:text-3xl text-2xl sm:font-bold font-bold ">
             {project.title}
           </h1>
-          <p className="text-white">Posted by {project.user?.name}</p>
         </div>
         <div>
           <img src="/frontend coffee webpage.png" alt="Coffee Webpage" />
@@ -50,6 +39,7 @@ const ProjectDetail = () => {
           <p>likes</p>
           <p>comments</p>
         </div>
+        <p className="text-white">Posted by : {project.user?.name}</p>
         <div className="mt-4">
           <h1 className="text-lg font-semibold">Project Description</h1>
           <p>{project.description}</p>
