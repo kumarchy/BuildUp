@@ -1,9 +1,9 @@
 import { Send, X } from "lucide-react";
-import { useContext, useState } from "react";
+import { use, useContext, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
 import axios from 'axios';
 
-const Comment = ({ isOpen, onClose, comments ,post_id, user_id}) => {
+const Comment = ({ isOpen, onClose, comments ,post_id}) => {
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState(comments || []);
   
@@ -11,13 +11,15 @@ const Comment = ({ isOpen, onClose, comments ,post_id, user_id}) => {
 
   if (!isOpen) return null;
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!comment.trim()) return;
 
     const newComment = {
       post_id: post_id,
-      user_id: user_id, 
+      user_id: user.id, 
       comment: comment,
     };
 
