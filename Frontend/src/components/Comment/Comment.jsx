@@ -16,25 +16,16 @@ const Comment = ({ isOpen, onClose, comments }) => {
     if (!comment.trim()) return;
 
     const newComment = {
-      post_id: comments[0]?.post_id || null, // Assuming post_id from existing comments
-      user_id: 1, // Replace with actual user_id from context or auth
+      post_id: comments[0]?.post_id || null,
+      user_id: comments.user_id, 
       comment: comment,
     };
 
     try {
       const response = await axios.post("http://localhost:3000/api/comment", newComment);
-      const savedComment = response.data.data;
-
-      const formattedComment = {
-        id: savedComment.id,
-        user: { name: "You" }, 
-        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
-        comment: savedComment.comment,
-        created_at: new Date().toISOString(),
-      };
-
-      setCommentList([formattedComment, ...commentList]);
-      setComment("");
+      if(response.data.success){
+        setComment("");
+      }
     } catch (error) {
       console.error("Error creating comment:", error);
     }
