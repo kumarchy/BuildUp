@@ -71,7 +71,8 @@ const Content = () => {
                   </div>
 
                   <p className="text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                    {project.description}
+                    {project.description.split(" ").slice(0,25).join(" ")}
+                    {project.description.split(" ").length > 25 ? "..." : ""}
                   </p>
 
                   <div className="h-px bg-zinc-200 dark:bg-zinc-700" />
