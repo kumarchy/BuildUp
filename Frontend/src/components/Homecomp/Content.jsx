@@ -109,7 +109,7 @@ const Content = () => {
               <Comment
                 isOpen={true}
                 onClose={() => setOpenCommentPostId(null)}
-                comments={project.comment?.comment || []}
+                comments={project.comment || []}
               />
             )}
           </div>
