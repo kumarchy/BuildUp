@@ -13,6 +13,17 @@ const Content = () => {
   }, [showAllPost,fetchAllPosts]);
 
   const navigate = useNavigate();
+
+  const getDaysAgo = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const currentDate = new Date();
+    const timeDiff = currentDate - createdDate; 
+    const daysAgo = Math.floor(timeDiff / (1000 * 60 * 60 * 24)); 
+
+    if (daysAgo === 0) return "Today";
+    if (daysAgo === 1) return "1 day ago";
+    return `${daysAgo} days ago`;
+  };
   
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
@@ -55,7 +66,7 @@ const Content = () => {
                       {project.title}
                     </h1>
                     <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                      Posted by John Doe • 2 days ago
+                    Posted by {project.user?.name} • {getDaysAgo(project.created_at)}
                     </p>
                   </div>
 
