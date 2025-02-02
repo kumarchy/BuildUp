@@ -2,6 +2,7 @@ import { Send, X } from "lucide-react";
 import { use, useContext, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Comment = ({ isOpen, onClose, comments, post_id }) => {
   const [comment, setComment] = useState("");
@@ -10,6 +11,7 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
   const { getDaysAgo } = useContext(StoreContext);
 
   if (!isOpen) return null;
+  const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -59,7 +61,7 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
                 <div
                   className="h-8 w-8 flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
                   onClick={() =>
-                    navigate(`/personalProjects/${comments.user_id}`)
+                    navigate(`/personalProjects/${comment.user_id}`)
                   }
                 >
                   {comments.user?.name?.charAt(0).toUpperCase() || "U"}
