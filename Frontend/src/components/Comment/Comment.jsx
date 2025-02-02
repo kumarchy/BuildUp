@@ -1,13 +1,13 @@
 import { Send, X } from "lucide-react";
 import { use, useContext, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
-import axios from 'axios';
+import axios from "axios";
 
-const Comment = ({ isOpen, onClose, comments ,post_id}) => {
+const Comment = ({ isOpen, onClose, comments, post_id }) => {
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState(comments || []);
-  
-  const{getDaysAgo} = useContext(StoreContext); 
+
+  const { getDaysAgo } = useContext(StoreContext);
 
   if (!isOpen) return null;
 
@@ -19,13 +19,16 @@ const Comment = ({ isOpen, onClose, comments ,post_id}) => {
 
     const newComment = {
       post_id: post_id,
-      user_id: user.id, 
+      user_id: user.id,
       comment: comment,
     };
 
     try {
-      const response = await axios.post("http://localhost:3000/api/comment", newComment);
-      if(response.data.success){
+      const response = await axios.post(
+        "http://localhost:3000/api/comment",
+        newComment
+      );
+      if (response.data.success) {
         setComment("");
       }
     } catch (error) {
@@ -53,11 +56,14 @@ const Comment = ({ isOpen, onClose, comments ,post_id}) => {
           {commentList.length > 0 ? (
             commentList.map((comment) => (
               <div key={comment.id} className="flex gap-4 group">
-                <img
-                  src={comment.avatar || "https://via.placeholder.com/40"}
-                  alt={comment.user?.name}
-                  className="w-10 h-10 rounded-full object-cover ring-2 ring-white dark:ring-zinc-700"
-                />
+                <div
+                  className="h-full w-full flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
+                  onClick={() =>
+                    navigate(`/personalProjects/${comments.user_id}`)
+                  }
+                >
+                  {comments.user?.name?.charAt(0).toUpperCase() || "U"}
+                </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-zinc-900 dark:text-white">
