@@ -64,7 +64,7 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
                     navigate(`/personalProjects/${comment.user_id}`)
                   }
                 >
-                  {comments.user?.name?.charAt(0).toUpperCase() || "U"}
+                  {comment.user?.name?.charAt(0).toUpperCase() || "U"}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
