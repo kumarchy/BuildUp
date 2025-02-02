@@ -16,16 +16,7 @@ const Content = () => {
 
   const navigate = useNavigate();
 
-  const getDaysAgo = (createdAt) => {
-    const createdDate = new Date(createdAt);
-    const currentDate = new Date();
-    const timeDiff = currentDate - createdDate;
-    const daysAgo = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-    if (daysAgo === 0) return "Today";
-    if (daysAgo === 1) return "1 day ago";
-    return `${daysAgo} days ago`;
-  };
+  const{getDaysAgo} = useContext(StoreContext); 
 
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
