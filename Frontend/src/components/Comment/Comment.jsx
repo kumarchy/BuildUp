@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
 import axios from 'axios';
 
-const Comment = ({ isOpen, onClose, comments }) => {
+const Comment = ({ isOpen, onClose, comments ,post_id, user_id}) => {
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState(comments || []);
   
@@ -16,8 +16,8 @@ const Comment = ({ isOpen, onClose, comments }) => {
     if (!comment.trim()) return;
 
     const newComment = {
-      post_id: comments[0]?.post_id || null,
-      user_id: comments.user_id, 
+      post_id: post_id,
+      user_id: user_id, 
       comment: comment,
     };
 
