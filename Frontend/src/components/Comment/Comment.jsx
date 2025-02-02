@@ -1,6 +1,7 @@
 import { Send, X } from "lucide-react";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
+import axios from 'axios';
 
 const Comment = ({ isOpen, onClose, comments }) => {
   const [comment, setComment] = useState("");
@@ -8,25 +9,36 @@ const Comment = ({ isOpen, onClose, comments }) => {
   
   const{getDaysAgo} = useContext(StoreContext); 
 
-  const handleSubmit = (e) => {
+  if (!isOpen) return null;
+
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
     if (!comment.trim()) return;
 
     const newComment = {
-      id: commentList.length + 1,
-      user: { name: "You" }, 
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
-      content: comment,
-      time: "Just now",
+      post_id: comments[0]?.post_id || null, // Assuming post_id from existing comments
+      user_id: 1, // Replace with actual user_id from context or auth
+      comment: comment,
     };
 
-    setCommentList([newComment, ...commentList]);
-    setComment("");
+    try {
+      const response = await axios.post("http://localhost:3000/api/comment", newComment);
+      const savedComment = response.data.data;
+
+      const formattedComment = {
+        id: savedComment.id,
+        user: { name: "You" }, 
+        avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop",
+        comment: savedComment.comment,
+        created_at: new Date().toISOString(),
+      };
+
+      setCommentList([formattedComment, ...commentList]);
+      setComment("");
+    } catch (error) {
+      console.error("Error creating comment:", error);
+    }
   };
-
-  if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-zinc-800 rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-xl animate-in fade-in duration-200">
@@ -77,7 +89,7 @@ const Comment = ({ isOpen, onClose, comments }) => {
 
         {/* Comment Input */}
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleCommentSubmit}
           className="p-4 border-t border-zinc-200 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50"
         >
           <div className="flex gap-4">
