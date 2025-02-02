@@ -1,9 +1,12 @@
 import { Send, X } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { StoreContext } from "../../context/storeContext";
 
 const Comment = ({ isOpen, onClose, comments }) => {
   const [comment, setComment] = useState("");
   const [commentList, setCommentList] = useState(comments || []);
+  
+  const{getDaysAgo} = useContext(StoreContext); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,7 +59,7 @@ const Comment = ({ isOpen, onClose, comments }) => {
                       {comment.user?.name}
                     </span>
                     <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                      {comment.time || "A moment ago"}
+                      {getDaysAgo(comment.created_at) || "A moment ago"}
                     </span>
                   </div>
                   <p className="text-zinc-600 dark:text-zinc-300 mt-1">
