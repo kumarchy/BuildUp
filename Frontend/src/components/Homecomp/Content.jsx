@@ -6,7 +6,7 @@ import Comment from "../Comment/Comment";
 
 const Content = () => {
   const { showAllPost, fetchAllPosts } = useContext(StoreContext);
-  const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const [openCommentPostId, setOpenCommentPostId] = useState(null);
 
   useEffect(() => {
     if (!showAllPost) {
@@ -95,7 +95,9 @@ const Content = () => {
                       <ThumbsDown className="h-4 w-4" />
                       <span className="hidden sm:block">Dislike</span>
                     </button>
-                    <button  onClick={() => setIsCommentOpen(true)} className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
+                    <button  onClick={() =>
+                    setOpenCommentPostId(openCommentPostId === project.id ? null : project.id)
+                  } className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
                       <MessageCircle className="h-4 w-4" />
                       <span className="hidden sm:block">Comment</span>
                     </button>
@@ -103,9 +105,16 @@ const Content = () => {
                 </div>
               </section>
             </div>
+            {openCommentPostId === project.id && (
+              <Comment
+                isOpen={true}
+                onClose={() => setOpenCommentPostId(null)}
+                comments={project.comment || []}
+              />
+            )}
           </div>
         ))}
-        <Comment isOpen={isCommentOpen} onClose={()=>setIsCommentOpen(false)}/>
+        
     </div>
   );
 };
