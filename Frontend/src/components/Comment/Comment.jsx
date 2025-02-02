@@ -57,7 +57,7 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
             commentList.map((comment) => (
               <div key={comment.id} className="flex gap-4 group">
                 <div
-                  className="h-full w-full flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
+                  className="h-8 w-8 flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
                   onClick={() =>
                     navigate(`/personalProjects/${comments.user_id}`)
                   }
