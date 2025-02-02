@@ -49,12 +49,24 @@ const StoreContextProvider = (props) => {
     }
   };
 
+  const getDaysAgo = (createdAt) => {
+    const createdDate = new Date(createdAt);
+    const currentDate = new Date();
+    const timeDiff = currentDate - createdDate;
+    const daysAgo = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    if (daysAgo === 0) return "Today";
+    if (daysAgo === 1) return "1 day ago";
+    return `${daysAgo} days ago`;
+  };
+
   const contextValue = {
     showPersonalPost,
     showProjects,
     deleteProjects,
     showAllPost,
     fetchAllPosts,
+    getDaysAgo
   };
 
   return (
