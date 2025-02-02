@@ -101,6 +101,8 @@ const Content = () => {
                 isOpen={true}
                 onClose={() => setOpenCommentPostId(null)}
                 comments={project.comment || []}
+                post_id={project.id}
+                user_id={project.user_id}
               />
             )}
           </div>
