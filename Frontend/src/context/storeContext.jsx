@@ -6,11 +6,13 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [showPersonalPost, setShowPersonalPost] = useState([]);
   const [showAllPost, setShowAllPost] = useState("");
+  const [likesCount, setLikesCount] = useState({});
 
   const url = "http://localhost:3000";
 
-  // Display user personal projects
+  const user = JSON.parse(localStorage.getItem("user"));
 
+  // Display user personal projects
   const showProjects = async (userId) => {
     try {
       const response = await axios.get(`${url}/api/post/${userId}`);
@@ -29,6 +31,8 @@ const StoreContextProvider = (props) => {
       const response = await axios.get(`${url}/api/post`);
       if (response.data.success) {
         setShowAllPost(response.data.data);
+
+        response.data.data.forEach((post)=>getLikeCount(post.id));
       }
     } catch (error) {
       console.log(error);
@@ -50,11 +54,18 @@ const StoreContextProvider = (props) => {
   };
 
   // create like
-  const createLike = async()=>{
+  const createLike = async(post_id,type)=>{
     try{
-      const response = await axios.post(`${url}/api/like`);
+      const response = await axios.post(`${url}/api/like`,
+        {
+          post_id,
+          type,
+          user_id: user.id
+        }
+      );
       if(response.data.success){
-        console.log("like created successfully");
+        console.log(`${type} added successfully`);
+      getLikeCount(post_id);
       }
     }catch(error){
       console.log("Error creating like",error);
@@ -65,7 +76,9 @@ const StoreContextProvider = (props) => {
     try{
        const response = await axios.get(`${url}/api/like/${postId}`);
        if(response.data.success){
-        console.log("like count got successfully");
+        setLikesCount((prev)=>({
+          ...prev,[postId]:response.likes.like
+        }))
        }
     }catch(error){
       console.log("Error getting like count");
@@ -89,7 +102,10 @@ const StoreContextProvider = (props) => {
     deleteProjects,
     showAllPost,
     fetchAllPosts,
-    getDaysAgo
+    getDaysAgo,
+    createLike,
+    getLikeCount,
+    likesCount
   };
 
   return (
