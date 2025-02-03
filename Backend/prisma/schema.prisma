@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,7 +17,7 @@ model User {
   password   String?
   post       Post[]
   comment    Comment[]
-  // status Boolean @default(true)
+  like       Like[]
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
 }
@@ -35,6 +32,7 @@ model Post {
   githubLink   String?
   deployedLink String?
   comment      Comment[]
+  like         Like[]
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
 }
@@ -48,4 +46,22 @@ model Comment {
   comment    String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Like {
+  id         Int      @id @default(autoincrement())
+  post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  post_id    Int
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id    Int
+  type       LikeType
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([post_id, user_id])
+}
+
+enum LikeType {
+  LIKE
+  DISLIKE
 }
