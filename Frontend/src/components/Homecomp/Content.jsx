@@ -113,7 +113,7 @@ const Content = () => {
                         />
                         <span className="hidden sm:block">Like</span>
                       </button>
-                      <p className="text-white underline">{likesCount || 0}</p>
+                      <p className="text-white underline">{likesCount[project.id]?.likes || 0}</p>
                     </div>
 
                     <div className="flex flex-col justify-center items-center">
@@ -128,7 +128,7 @@ const Content = () => {
                         />
                         <span className="hidden sm:block">Dislike</span>
                       </button>
-                      <p className="text-white underline">10k</p>
+                      <p className="text-white underline">{likesCount[project.id]?.dislikes || 0}</p>
                     </div>
 
                     <div className="flex flex-col justify-center items-center">
