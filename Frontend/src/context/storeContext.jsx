@@ -72,18 +72,22 @@ const StoreContextProvider = (props) => {
     }
   }
 
-  const getLikeCount = async(postId)=>{
-    try{
-       const response = await axios.get(`${url}/api/like/${postId}`);
-       if(response.data.success){
-        setLikesCount((prev)=>({
-          ...prev,[postId]:response.likes.like
-        }))
-       }
-    }catch(error){
-      console.log("Error getting like count");
+  const getLikeCount = async (postId) => {
+    try {
+      const response = await axios.get(`${url}/api/like/${postId}`);
+      if (response.data.success) {
+        setLikesCount((prev) => ({
+          ...prev,
+          [postId]: {
+            likes: response.data.likes,
+            dislikes: response.data.dislikes,
+          },
+        }));
+      }
+    } catch (error) {
+      console.log("Error getting like count", error);
     }
-  }
+  };
 
   const getDaysAgo = (createdAt) => {
     const createdDate = new Date(createdAt);
