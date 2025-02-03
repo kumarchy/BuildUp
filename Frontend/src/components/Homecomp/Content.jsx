@@ -5,29 +5,35 @@ import { useNavigate, Link } from "react-router-dom";
 import Comment from "../Comment/Comment";
 
 const Content = () => {
-  const { showAllPost, fetchAllPosts } = useContext(StoreContext);
+  const {
+    showAllPost,
+    fetchAllPosts,
+    getDaysAgo,
+    createLike,
+    getLikeCount,
+    likesCount,
+  } = useContext(StoreContext);
   const [openCommentPostId, setOpenCommentPostId] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
-  
+
   const navigate = useNavigate();
 
-  const { getDaysAgo, createLike, getLikeCount} = useContext(StoreContext);
-
-  const handleLike = (post_id,type) => {
-    createLike(post_id,type)
+  const handleLike = (post_id, type) => {
+    createLike(post_id, type);
+    getLikeCount(post_id);
     setIsLiked(!isLiked);
-    if(isDisliked){
+    if (isDisliked) {
       setIsDisliked(false);
     }
   };
 
-  const handleDislike=()=>{
+  const handleDislike = () => {
     setIsDisliked(!isDisliked);
-    if(isLiked){
+    if (isLiked) {
       setIsLiked(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (!showAllPost) {
@@ -98,7 +104,7 @@ const Content = () => {
                     <div className="flex flex-col justify-center items-center">
                       <button
                         className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
-                        onClick={()=>handleLike(project.id,"LIKE")}
+                        onClick={() => handleLike(project.id, "LIKE")}
                       >
                         <Heart
                           className={`h-4 w-4 ${
@@ -107,12 +113,19 @@ const Content = () => {
                         />
                         <span className="hidden sm:block">Like</span>
                       </button>
-                      <p className="text-white underline">10k</p>
+                      <p className="text-white underline">{likesCount || 0}</p>
                     </div>
 
                     <div className="flex flex-col justify-center items-center">
-                      <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0" onClick={()=>handleDislike(project.id,"DISLIKE")}>
-                        <ThumbsDown className={`h-4 w-4 ${isDisliked ? 'fill-blue-500' : 'fill-none'}`} />
+                      <button
+                        className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
+                        onClick={() => handleDislike(project.id, "DISLIKE")}
+                      >
+                        <ThumbsDown
+                          className={`h-4 w-4 ${
+                            isDisliked ? "fill-blue-500" : "fill-none"
+                          }`}
+                        />
                         <span className="hidden sm:block">Dislike</span>
                       </button>
                       <p className="text-white underline">10k</p>
