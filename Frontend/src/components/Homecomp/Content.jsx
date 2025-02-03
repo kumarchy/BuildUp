@@ -16,7 +16,7 @@ const Content = () => {
 
   const navigate = useNavigate();
 
-  const{getDaysAgo} = useContext(StoreContext); 
+  const { getDaysAgo } = useContext(StoreContext);
 
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
@@ -81,16 +81,24 @@ const Content = () => {
                     <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
                       <Heart className="h-4 w-4" />
                       <span className="hidden sm:block">Like</span>
+                      <p>10k</p>
                     </button>
                     <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
                       <ThumbsDown className="h-4 w-4" />
                       <span className="hidden sm:block">Dislike</span>
+                      <p>10k</p>
                     </button>
-                    <button  onClick={() =>
-                    setOpenCommentPostId(openCommentPostId === project.id ? null : project.id)
-                  } className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
+                    <button
+                      onClick={() =>
+                        setOpenCommentPostId(
+                          openCommentPostId === project.id ? null : project.id
+                        )
+                      }
+                      className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
+                    >
                       <MessageCircle className="h-4 w-4" />
                       <span className="hidden sm:block">Comment</span>
+                      <p>10k comments</p>
                     </button>
                   </div>
                 </div>
@@ -106,7 +114,6 @@ const Content = () => {
             )}
           </div>
         ))}
-        
     </div>
   );
 };
