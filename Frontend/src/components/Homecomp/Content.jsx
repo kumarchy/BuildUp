@@ -7,11 +7,22 @@ import Comment from "../Comment/Comment";
 const Content = () => {
   const { showAllPost, fetchAllPosts } = useContext(StoreContext);
   const [openCommentPostId, setOpenCommentPostId] = useState(null);
-  const [heartBgToggle, setHeartBgToggle] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
 
-  const ToggleHeartBg = () => {
-    setHeartBgToggle(!heartBgToggle);
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+    if(isDisliked){
+      setIsDisliked(false);
+    }
   };
+
+  const handleDislike=()=>{
+    setIsDisliked(!isDisliked);
+    if(isLiked){
+      setIsLiked(false);
+    }
+  }
 
   useEffect(() => {
     if (!showAllPost) {
@@ -86,24 +97,24 @@ const Content = () => {
                     <div className="flex flex-col justify-center items-center">
                       <button
                         className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
-                        onClick={ToggleHeartBg}
+                        onClick={handleLike}
                       >
                         <Heart
                           className={`h-4 w-4 ${
-                            heartBgToggle ? "fill-blue-500" : "fill-none"
+                            isLiked ? "fill-blue-500" : "fill-none"
                           }`}
                         />
                         <span className="hidden sm:block">Like</span>
                       </button>
-                      <p className="text-white">10k</p>
+                      <p className="text-white underline">10k</p>
                     </div>
 
                     <div className="flex flex-col justify-center items-center">
-                      <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0" onClick={ToggleHeartBg}>
-                        <ThumbsDown className={`h-4 w-4 ${heartBgToggle ? 'fill-blue-500' : 'fill-none'}`} />
+                      <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0" onClick={handleDislike}>
+                        <ThumbsDown className={`h-4 w-4 ${isDisliked ? 'fill-blue-500' : 'fill-none'}`} />
                         <span className="hidden sm:block">Dislike</span>
                       </button>
-                      <p className="text-white">10k</p>
+                      <p className="text-white underline">10k</p>
                     </div>
 
                     <div className="flex flex-col justify-center items-center">
@@ -118,7 +129,7 @@ const Content = () => {
                         <MessageCircle className="h-4 w-4" />
                         <span className="hidden sm:block">Comment</span>
                       </button>
-                      <p className="text-white">10k comments</p>
+                      <p className="text-white underline">10k comments</p>
                     </div>
                   </div>
                 </div>
