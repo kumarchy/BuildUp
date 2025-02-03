@@ -78,16 +78,23 @@ const Content = () => {
 
                   {/* Action Buttons */}
                   <div className="flex items-center justify-between gap-2 w-full flex-nowrap overflow-hidden">
+                    <div>
                     <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
                       <Heart className="h-4 w-4" />
                       <span className="hidden sm:block">Like</span>
-                      <p>10k</p>
                     </button>
+                    <p>10k</p>
+                    </div>
+
+                    <div>
                     <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
                       <ThumbsDown className="h-4 w-4" />
                       <span className="hidden sm:block">Dislike</span>
-                      <p>10k</p>
                     </button>
+                    <p>10k</p>
+                    </div>
+ 
+                    <div>
                     <button
                       onClick={() =>
                         setOpenCommentPostId(
@@ -98,8 +105,9 @@ const Content = () => {
                     >
                       <MessageCircle className="h-4 w-4" />
                       <span className="hidden sm:block">Comment</span>
-                      <p>10k comments</p>
                     </button>
+                    <p>10k comments</p>
+                    </div>
                   </div>
                 </div>
               </section>
