@@ -8,6 +8,7 @@ const StoreContextProvider = (props) => {
   const [showAllPost, setShowAllPost] = useState("");
   const [likesCount, setLikesCount] = useState({});
   const [comment, setComment] = useState("");
+  const [showComment, setShowComment] = useState([]);
 
   const url = "http://localhost:3000";
 
@@ -78,6 +79,18 @@ const StoreContextProvider = (props) => {
     }
   };
 
+  // get comment
+  const getComment = async()=>{
+    try{
+      const response = await axios.get(`${url}/api/comment`)
+    if(Array.isArray(response.data.data)){
+      setShowComment(response.data.data);
+    }
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   // create like
   const createLike = async(post_id,type)=>{
     try{
@@ -135,6 +148,8 @@ const StoreContextProvider = (props) => {
     handleCommentSubmit,
     comment,
     setComment,
+    getComment,
+    showComment,
     createLike,
     getLikeCount,
     likesCount
