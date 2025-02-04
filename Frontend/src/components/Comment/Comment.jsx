@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Comment = ({ isOpen, onClose, comments, post_id }) => {
-  const { getDaysAgo, handleCommentSubmit, setComment } =
+  const { getDaysAgo, handleCommentSubmit, comment, setComment } =
     useContext(StoreContext);
 
   if (!isOpen) return null;
