@@ -4,8 +4,9 @@ import { StoreContext } from "../../context/storeContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Comment = ({ isOpen, onClose, comments, post_id }) => {
-  const { getDaysAgo, handleCommentSubmit, comment, setComment } =
+const Comment = ({ isOpen, onClose, post_id }) => {
+  const { getDaysAgo, handleCommentSubmit, comment, setComment
+    showComment,} =
     useContext(StoreContext);
 
   if (!isOpen) return null;
@@ -29,8 +30,8 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
 
         {/* Display Comments */}
         <div className="p-4 overflow-y-auto max-h-[60vh] space-y-6">
-          {comments.length > 0 ? (
-            comments.map((comment) => (
+          {showComment.length > 0 ? (
+            showComment.map((comment) => (
               <div key={comment.id} className="flex gap-4 group">
                 <div
                   className="h-8 w-8 flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
