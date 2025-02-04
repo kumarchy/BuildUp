@@ -5,6 +5,14 @@ export const createComment = async (req, resp) => {
   const { post_id, user_id, comment } = req.body;
 
   try {
+    await prisma.comment.create({
+      data: {
+        post_id: Number(post_id),
+        user_id: Number(user_id),
+        comment: comment,
+      },
+    });
+
     const commentCount = await prisma.post.update({
       where:{
         id:Number(post_id)
@@ -15,14 +23,6 @@ export const createComment = async (req, resp) => {
         }
       }
     })
-
-    await prisma.comment.create({
-      data: {
-        post_id: Number(post_id),
-        user_id: Number(user_id),
-        comment: comment,
-      },
-    });
 
     resp.json({
       status: 200,
