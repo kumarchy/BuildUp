@@ -1,18 +1,8 @@
-/*
-  Warnings:
-
-  - Added the required column `deployedLink` to the `Post` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `githubLink` to the `Post` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `techStack` to the `Post` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- CreateEnum
 CREATE TYPE "LikeType" AS ENUM ('LIKE', 'DISLIKE');
 
 -- AlterTable
-ALTER TABLE "Post" ADD COLUMN     "deployedLink" TEXT NOT NULL,
-ADD COLUMN     "githubLink" TEXT NOT NULL,
-ADD COLUMN     "techStack" TEXT NOT NULL;
+ALTER TABLE "Post" ADD COLUMN     "comment_count" INTEGER NOT NULL DEFAULT 0;
 
 -- CreateTable
 CREATE TABLE "Like" (
