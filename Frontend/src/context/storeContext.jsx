@@ -7,6 +7,7 @@ const StoreContextProvider = (props) => {
   const [showPersonalPost, setShowPersonalPost] = useState([]);
   const [showAllPost, setShowAllPost] = useState("");
   const [likesCount, setLikesCount] = useState({});
+  const [comment, setComment] = useState("");
 
   const url = "http://localhost:3000";
 
@@ -50,6 +51,30 @@ const StoreContextProvider = (props) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  // create comment
+  const handleCommentSubmit = async (e,post_id) => {
+    e.preventDefault();
+    if (!comment.trim()) return;
+
+    const newComment = {
+      post_id: post_id,
+      user_id: user.id,
+      comment: comment,
+    };
+
+    try {
+      const response = await axios.post(
+        `${url}/api/comment`,
+        newComment
+      );
+      if (response.data.success) {
+        setComment("");
+      }
+    } catch (error) {
+      console.error("Error creating comment:", error);
     }
   };
 
@@ -107,6 +132,9 @@ const StoreContextProvider = (props) => {
     showAllPost,
     fetchAllPosts,
     getDaysAgo,
+    handleCommentSubmit,
+    comment,
+    setComment,
     createLike,
     getLikeCount,
     likesCount
