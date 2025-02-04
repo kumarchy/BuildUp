@@ -29,7 +29,14 @@ export const createComment = async (req, resp) => {
 
 // showAll Comment
 export const fetchAllComment = async (req, resp) => {
-  const comments = await prisma.comment.findMany();
+  const comments = await prisma.comment.findMany({
+    orderBy:{
+      created_at: "desc",
+    },
+    include:{
+      user:true,
+    }
+  });
 
   try {
     return resp.json({ status: 200, success: true, data: comments });
