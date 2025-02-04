@@ -143,7 +143,7 @@ const Content = () => {
                         <MessageCircle className="h-4 w-4" />
                         <span className="hidden sm:block">Comment</span>
                       </button>
-                      <p className="text-white underline">10k comments</p>
+                      <p className="text-white underline">{project.comment_count} comments</p>
                     </div>
                   </div>
                 </div>
