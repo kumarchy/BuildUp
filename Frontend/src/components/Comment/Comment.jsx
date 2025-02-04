@@ -64,7 +64,7 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
 
         {/* Comment Input */}
         <form
-          onSubmit={()=>handleCommentSubmit(post_id)}
+          onSubmit={(e)=>handleCommentSubmit(e,post_id)}
           className="p-4 border-t border-zinc-200 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50"
         >
           <div className="flex gap-4">
