@@ -5,11 +5,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Comment = ({ isOpen, onClose, post_id }) => {
-  const { getDaysAgo, handleCommentSubmit, comment, setComment,
+  const { getDaysAgo, handleCommentSubmit, comment, setComment,getComment,
     showComment} =
     useContext(StoreContext);
 
   if (!isOpen) return null;
+  if(isOpen){
+    getComment();
+  }
   const navigate = useNavigate();
 
   return (
