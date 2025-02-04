@@ -5,6 +5,17 @@ export const createComment = async (req, resp) => {
   const { post_id, user_id, comment } = req.body;
 
   try {
+    const commentCount = await prisma.post.update({
+      where:{
+        id:Number(post_id)
+      },
+      data:{
+        comment_count:{
+          increment:1
+        }
+      }
+    })
+
     await prisma.comment.create({
       data: {
         post_id: Number(post_id),
@@ -16,6 +27,7 @@ export const createComment = async (req, resp) => {
     resp.json({
       status: 200,
       success: true,
+      data:commentCount,
       message: "Comment created successfully",
     });
   } catch (error) {
