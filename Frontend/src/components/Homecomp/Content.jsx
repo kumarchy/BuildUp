@@ -21,6 +21,7 @@ const Content = () => {
 
   const handleLike = (post_id, type) => {
     createLike(post_id, type);
+    getLikeCount(post_id);
     setIsLiked(!isLiked);
     if (isDisliked) {
       setIsDisliked(false);
