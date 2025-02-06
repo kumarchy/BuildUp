@@ -48,9 +48,9 @@ export const fetchAllPost = async (req, resp) => {
   try {
     const posts = await prisma.post.findMany({
       include: {
-        user:{
-          select:{
-          name:true,
+        user: {
+          select: {
+            name: true,
           },
         },
         comment: {
@@ -77,7 +77,7 @@ export const fetchAllPost = async (req, resp) => {
 
 // show perticular post comment
 export const showPost = async (req, resp) => {
-  const user_id = req.params.user_id;
+  const {user_id} = req.params;
 
   try {
     const posts = await prisma.post.findMany({
@@ -85,9 +85,9 @@ export const showPost = async (req, resp) => {
         user_id: Number(user_id),
       },
       include: {
-        user:{
-          select:{
-          name:true,
+        user: {
+          select: {
+            name: true,
           },
         },
         comment: {
@@ -142,6 +142,41 @@ export const deletePost = async (req, resp) => {
     return resp.json({
       status: 400,
       messsage: "An error occurred while fetching posts",
+    });
+  }
+};
+
+// search post
+export const searchPost = async (req, resp) => {
+  try {
+    const { search } = req.query;
+
+    const posts = await prisma.post.findMany({
+      where: search
+        ? {
+            title: {
+              contains: search.trim(),  
+              mode: "insensitive",
+            },
+          }
+        : {},
+    });
+
+    if (posts.length === 0) {
+      return resp.status(404).json({
+        status: 404,
+        success: false,
+        message: "No matching posts found",
+      });
+    }
+
+    resp.json({ status: 200, success: true, data: posts });
+  } catch (error) {
+    console.error("Error fetching projects:", error);
+    resp.status(500).json({
+      status: 500,
+      success: false,
+      message: "An error occurred while fetching projects",
     });
   }
 };
