@@ -1,4 +1,4 @@
-import { Heart, MessageCircle, ThumbsDown, ExternalLink } from "lucide-react";
+import { Heart, MessageCircle, ThumbsDown } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
 import { useNavigate, Link } from "react-router-dom";
@@ -13,27 +13,41 @@ const Content = () => {
     getLikeCount,
     likesCount,
   } = useContext(StoreContext);
+
   const [openCommentPostId, setOpenCommentPostId] = useState(null);
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
+  const [likedPosts, setLikedPosts] = useState({});
+  const [dislikedPosts, setDislikedPosts] = useState({});
 
   const navigate = useNavigate();
 
-  const handleLike = (post_id, type) => {
-    createLike(post_id, type);
+  const handleLike = (post_id) => {
+    setLikedPosts((prev) => ({
+      ...prev,
+      [post_id]: !prev[post_id], // Toggle like state
+    }));
+
+    setDislikedPosts((prev) => ({
+      ...prev,
+      [post_id]: false, // Reset dislike if liked
+    }));
+
+    createLike(post_id, "LIKE");
     getLikeCount(post_id);
-    setIsLiked(!isLiked);
-    if (isDisliked) {
-      setIsDisliked(false);
-    }
   };
 
-  const handleDislike = (post_id, type) => {
-    createLike(post_id, type);
-    setIsDisliked(!isDisliked);
-    if (isLiked) {
-      setIsLiked(false);
-    }
+  const handleDislike = (post_id) => {
+    setDislikedPosts((prev) => ({
+      ...prev,
+      [post_id]: !prev[post_id], // Toggle dislike state
+    }));
+
+    setLikedPosts((prev) => ({
+      ...prev,
+      [post_id]: false, // Reset like if disliked
+    }));
+
+    createLike(post_id, "DISLIKE");
+    getLikeCount(post_id);
   };
 
   useEffect(() => {
@@ -105,31 +119,35 @@ const Content = () => {
                     <div className="flex flex-col justify-center items-center">
                       <button
                         className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
-                        onClick={() => handleLike(project.id, "LIKE")}
+                        onClick={() => handleLike(project.id)}
                       >
                         <Heart
                           className={`h-4 w-4 ${
-                            isLiked ? "fill-blue-500" : "fill-none"
+                            likedPosts[project.id] ? "fill-blue-500" : "fill-none"
                           }`}
                         />
                         <span className="hidden sm:block">Like</span>
                       </button>
-                      <p className="text-white underline">{likesCount[project.id]?.likes || 0}</p>
+                      <p className="text-white underline">
+                        {likesCount[project.id]?.likes || 0}
+                      </p>
                     </div>
 
                     <div className="flex flex-col justify-center items-center">
                       <button
                         className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
-                        onClick={() => handleDislike(project.id, "DISLIKE")}
+                        onClick={() => handleDislike(project.id)}
                       >
                         <ThumbsDown
                           className={`h-4 w-4 ${
-                            isDisliked ? "fill-blue-500" : "fill-none"
+                            dislikedPosts[project.id] ? "fill-blue-500" : "fill-none"
                           }`}
                         />
                         <span className="hidden sm:block">Dislike</span>
                       </button>
-                      <p className="text-white underline">{likesCount[project.id]?.dislikes || 0}</p>
+                      <p className="text-white underline">
+                        {likesCount[project.id]?.dislikes || 0}
+                      </p>
                     </div>
 
                     <div className="flex flex-col justify-center items-center">
@@ -144,7 +162,9 @@ const Content = () => {
                         <MessageCircle className="h-4 w-4" />
                         <span className="hidden sm:block">Comment</span>
                       </button>
-                      <p className="text-white underline">{project.comment_count} comments</p>
+                      <p className="text-white underline">
+                        {project.comment_count} comments
+                      </p>
                     </div>
                   </div>
                 </div>
