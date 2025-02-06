@@ -11,7 +11,7 @@ const Comment = ({ isOpen, onClose, post_id }) => {
 
   if (!isOpen) return null;
   if(isOpen){
-    getComment();
+    getComment(post_id);
   }
   const navigate = useNavigate();
 
