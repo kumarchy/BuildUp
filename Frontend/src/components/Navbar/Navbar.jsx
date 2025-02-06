@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Search, User, Menu, X } from 'lucide-react';
 import Profile from '../Profile/Profile';
 import { Link } from 'react-router-dom';
+import { StoreContext } from '../../context/storeContext';
 
 const Navbar = ({ setShowSignup }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileVisible, setIsProfileVisible] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); 
+  
+  const{searchPost} = useContext(StoreContext);
 
+  searchPost(searchTerm);
   return (
     <nav className="bg-[#0F1B21] shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,7 +40,8 @@ const Navbar = ({ setShowSignup }) => {
               <input
                 type="text"
                 placeholder="Search..."
-                className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" onChange={(e)=>setSearchTerm(e.target.value)}
+                value={searchTerm}
               />
               <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
             </div>
