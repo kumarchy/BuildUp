@@ -55,6 +55,20 @@ const StoreContextProvider = (props) => {
     }
   };
 
+   // search project
+  const searchPost = async(searchTerm)=>{
+   try{
+    const response =await axios.get(`${url}/api/post/search`,{
+      params:{search : searchTerm}
+     })
+
+     if(Array.isArray(response.data.data)){
+      setShowAllPost(response.data.data);
+     }
+   }catch (error) {
+    console.error("Error fetching search results:", error);
+   }
+
   // create comment
   const handleCommentSubmit = async (e,post_id) => {
     e.preventDefault();
@@ -144,6 +158,7 @@ const StoreContextProvider = (props) => {
     deleteProjects,
     showAllPost,
     fetchAllPosts,
+    searchPost,
     getDaysAgo,
     handleCommentSubmit,
     comment,
@@ -161,5 +176,5 @@ const StoreContextProvider = (props) => {
     </StoreContext.Provider>
   );
 };
-
+}
 export default StoreContextProvider;
