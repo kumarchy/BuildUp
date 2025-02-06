@@ -80,9 +80,9 @@ const StoreContextProvider = (props) => {
   };
 
   // get comment
-  const getComment = async()=>{
+  const getComment = async(post_id)=>{
     try{
-      const response = await axios.get(`${url}/api/comment`)
+      const response = await axios.get(`${url}/api/comment/${post_id}`)
     if(Array.isArray(response.data.data)){
       setShowComment(response.data.data);
     }
