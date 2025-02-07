@@ -68,7 +68,7 @@ const StoreContextProvider = (props) => {
    }catch (error) {
     console.error("Error fetching search results:", error);
    }
-
+  }
   // create comment
   const handleCommentSubmit = async (e,post_id) => {
     e.preventDefault();
@@ -176,5 +176,5 @@ const StoreContextProvider = (props) => {
     </StoreContext.Provider>
   );
 };
-}
+
 export default StoreContextProvider;
