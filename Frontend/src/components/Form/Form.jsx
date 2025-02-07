@@ -42,7 +42,7 @@ const Form = () => {
             {image ? (
               <img src={image} alt="Preview" className="w-full max-h-full" />
             ) : (
-              <span>Drag and Drop Project HomePage.</span>
+              <span>Drag and Drop Project HomePage</span>
             )}
           </div>
           <input
