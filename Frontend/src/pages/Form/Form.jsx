@@ -6,9 +6,9 @@ const Form = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    // techStack: "",
-    // githubLink: "",
-    // deployedLink: "",
+    techStack: "", // Added techStack field
+    githubLink: "", // Added githubLink field
+    deployedLink: "", // Added deployedLink field
   });
 
   // const handleFileDrop = (e) => {
@@ -41,6 +41,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user || !user.id) {
@@ -52,9 +53,9 @@ const Form = () => {
       user_id: user.id, // Include user_id in the post data
       title: formData.title,
       description: formData.description,
-      // techStack: formData.techStack,
-      // githubLink: formData.githubLink,
-      // deployedLink: formData.deployedLink,
+      techStack: formData.techStack, // Added techStack
+      githubLink: formData.githubLink, // Added githubLink
+      deployedLink: formData.deployedLink, // Added deployedLink
       // image, // Include image if necessary
     };
 
@@ -125,16 +126,16 @@ const Form = () => {
             placeholder="TechStack"
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
-          />
-          <input
+          /> */}
+          {/* <input
             type="text"
             name="githubLink"
             value={formData.githubLink}
             placeholder="Github Link"
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
-          />
-          <input
+          /> */}
+          {/* <input
             type="text"
             name="deployedLink"
             value={formData.deployedLink}
