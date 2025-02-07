@@ -27,7 +27,7 @@ const Form = () => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center dark:bg-zinc-900">
       <div className="mt-5 md:w-[70%] sm:w-[70%] w-[80%]">
         <form
           action=""
