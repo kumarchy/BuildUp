@@ -86,7 +86,7 @@ const Form = () => {
           // onDragOver={(e) => e.preventDefault()}
           // onDrop={handleFileDrop}
         >
-          {/* <div
+{/*           <div
             className="border-dotted border-[2px] h-[130px] flex justify-center items-center cursor-pointer"
             onClick={() => document.getElementById("fileInput").click()}
           >
@@ -119,30 +119,30 @@ const Form = () => {
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
           />
-          {/* <input
+          <input
             type="text"
             name="techStack"
             value={formData.techStack}
             placeholder="TechStack"
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
-          /> */}
-          {/* <input
+          />
+          <input
             type="text"
             name="githubLink"
             value={formData.githubLink}
             placeholder="Github Link"
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
-          /> */}
-          {/* <input
+          />
+          <input
             type="text"
             name="deployedLink"
             value={formData.deployedLink}
             placeholder="Deployed Link"
             onChange={handleChange}
             className="border-[1px] p-2 outline-none"
-          /> */}
+          />
           <div>
             <button type="submit" className="border-[1px] p-2 bg-green-600">
               Submit
