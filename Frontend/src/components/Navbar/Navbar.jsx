@@ -26,9 +26,6 @@ const Navbar = ({ setShowSignup }) => {
             <a href="/" className="text-white border-b-2 border-transparent hover:border-white transition-all duration-200">
               Home
             </a>
-            <a href="/about" className="text-white border-b-2 border-transparent hover:border-white transition-all duration-200">
-              Projects
-            </a>
             <Link to="/form" className="flex items-center justify-center text-white border-b-2 border-transparent hover:border-white transition-all duration-200">
               <span className="text-2xl">+</span> AddProject
             </Link>
