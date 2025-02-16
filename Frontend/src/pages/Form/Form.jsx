@@ -78,7 +78,7 @@ const Form = () => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center  dark:bg-zinc-900 h-[100vh]">
       <div className="mt-5 md:w-[70%] sm:w-[70%] w-[80%]">
         <form
           onSubmit={handleSubmit}
@@ -109,7 +109,7 @@ const Form = () => {
             value={formData.title}
             placeholder="Project Title"
             onChange={handleChange}
-            className="border-[1px] p-2 outline-none"
+            className="border-[1px] p-2 outline-none dark:bg-zinc-800 text-white"
           />
           <textarea
             rows={5}
@@ -117,7 +117,7 @@ const Form = () => {
             value={formData.description}
             placeholder="Project Description"
             onChange={handleChange}
-            className="border-[1px] p-2 outline-none"
+            className="border-[1px] p-2 outline-none dark:bg-zinc-800 text-white"
           />
           <input
             type="text"
@@ -125,7 +125,7 @@ const Form = () => {
             value={formData.techStack}
             placeholder="TechStack"
             onChange={handleChange}
-            className="border-[1px] p-2 outline-none"
+            className="border-[1px] p-2 outline-none dark:bg-zinc-800 text-white"
           />
           <input
             type="text"
@@ -133,7 +133,7 @@ const Form = () => {
             value={formData.githubLink}
             placeholder="Github Link"
             onChange={handleChange}
-            className="border-[1px] p-2 outline-none"
+            className="border-[1px] p-2 outline-none dark:bg-zinc-800 text-white"
           />
           <input
             type="text"
@@ -141,10 +141,10 @@ const Form = () => {
             value={formData.deployedLink}
             placeholder="Deployed Link"
             onChange={handleChange}
-            className="border-[1px] p-2 outline-none"
+            className="border-[1px] p-2 outline-none dark:bg-zinc-800 text-white"
           />
           <div>
-            <button type="submit" className="border-[1px] p-2 bg-green-600">
+            <button type="submit" className="border-[1px] pt-2 pb-2 pl-4 pr-4 bg-blue-500 rounded-md">
               Submit
             </button>
           </div>
