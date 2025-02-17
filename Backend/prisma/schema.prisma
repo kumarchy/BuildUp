@@ -31,6 +31,7 @@ model Post {
   techStack     String?
   githubLink    String?
   deployedLink  String?
+  image_url     String?
   comment       Comment[]
   like          Like[]
   comment_count Int       @default(0)
