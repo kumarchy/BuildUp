@@ -3,10 +3,10 @@ import prisma from "../db/db.config.js";
 
 // create a post
 export const createPost = async (req, resp) => {
-  const { user_id, title, description, techStack, githubLink, deployedLink } =
+  const { user_id, title, description, techStack, githubLink, deployedLink, image_url} =
     req.body;
 
-  if (!title || !description || !techStack || !githubLink || !deployedLink) {
+  if (!title || !description || !techStack || !githubLink || !deployedLink ||!image_url) {
     return resp.json({
       status: 400,
       success: false,
@@ -23,6 +23,7 @@ export const createPost = async (req, resp) => {
         techStack: techStack,
         githubLink: githubLink,
         deployedLink: deployedLink,
+        image_url: image_url
       },
     });
 
