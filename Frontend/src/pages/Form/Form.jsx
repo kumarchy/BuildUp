@@ -3,36 +3,44 @@ import axios from "axios";
 
 const Form = () => {
   const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    techStack: "", // Added techStack field
-    githubLink: "", // Added githubLink field
-    deployedLink: "", // Added deployedLink field
+    techStack: "",
+    githubLink: "",
+    deployedLink: "",
   });
 
-  // const handleFileDrop = (e) => {
-  //   e.preventDefault();
-  //   const droppedFile = e.dataTransfer.files[0];
+  const handleFileDrop = (e) => {
+    e.preventDefault();
+    const droppedFile = e.dataTransfer.files[0];
 
-  //   if (droppedFile && droppedFile.type.startsWith("image/")) {
-  //     const imageURL = URL.createObjectURL(droppedFile);
-  //     setImage(imageURL);
-  //   } else {
-  //     alert("Please upload a valid image file.");
-  //   }
-  // };
+    if (droppedFile && droppedFile.type.startsWith("image/")) {
+      const imageURL = URL.createObjectURL(droppedFile);
+      setImage(imageURL);
+    } else {
+      alert("Please upload a valid image file.");
+    }
+  };
 
-  // const handleFileInputChange = (e) => {
-  //   const selectedFile = e.target.files[0];
+  const handleFileInputChange = (e) => {
+    const selectedFile = e.target.files[0];
 
-  //   if (selectedFile && selectedFile.type.startsWith("image/")) {
-  //     const imageURL = URL.createObjectURL(selectedFile);
-  //     setImage(imageURL);
-  //   } else {
-  //     alert("Please upload a valid image file.");
-  //   }
-  // };
+    if (selectedFile && selectedFile.type.startsWith("image/")) {
+      const imageURL = URL.createObjectURL(selectedFile);
+      setImage(imageURL);
+    } else {
+      alert("Please upload a valid image file.");
+    }
+
+    // ---cloudinary part---
+    var reader = new FileReader();
+    reader.onloadend = function(){
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,13 +58,13 @@ const Form = () => {
     }
 
     const postData = {
-      user_id: user.id, // Include user_id in the post data
+      user_id: user.id,
       title: formData.title,
       description: formData.description,
-      techStack: formData.techStack, // Added techStack
-      githubLink: formData.githubLink, // Added githubLink
-      deployedLink: formData.deployedLink, // Added deployedLink
-      // image, // Include image if necessary
+      techStack: formData.techStack,
+      githubLink: formData.githubLink,
+      deployedLink: formData.deployedLink,
+      image_url: preview
     };
 
     try {
@@ -65,7 +73,7 @@ const Form = () => {
         postData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token if necessary
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -83,10 +91,10 @@ const Form = () => {
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-5"
-          // onDragOver={(e) => e.preventDefault()}
-          // onDrop={handleFileDrop}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleFileDrop}
         >
-{/*           <div
+          <div
             className="border-dotted border-[2px] h-[130px] flex justify-center items-center cursor-pointer"
             onClick={() => document.getElementById("fileInput").click()}
           >
@@ -95,14 +103,14 @@ const Form = () => {
             ) : (
               <span>Drag and Drop Project HomePage</span>
             )}
-          </div> */}
-          {/* <input
+          </div>
+          <input
             type="file"
             id="fileInput"
             hidden
             accept="image/*"
             onChange={handleFileInputChange}
-          /> */}
+          />
           <input
             type="text"
             name="title"
@@ -144,7 +152,10 @@ const Form = () => {
             className="border-[1px] p-2 outline-none dark:bg-zinc-800 text-white"
           />
           <div>
-            <button type="submit" className="border-[1px] pt-2 pb-2 pl-4 pr-4 bg-blue-500 rounded-md">
+            <button
+              type="submit"
+              className="border-[1px] pt-2 pb-2 pl-4 pr-4 bg-blue-500 rounded-md"
+            >
               Submit
             </button>
           </div>
