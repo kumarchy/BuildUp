@@ -13,21 +13,9 @@ export const createComment = async (req, resp) => {
       },
     });
 
-    const commentCount = await prisma.post.update({
-      where:{
-        id:Number(post_id)
-      },
-      data:{
-        comment_count:{
-          increment:1
-        }
-      }
-    })
-
     resp.json({
       status: 200,
       success: true,
-      data:commentCount,
       message: "Comment created successfully",
     });
   } catch (error) {
@@ -41,21 +29,9 @@ export const createComment = async (req, resp) => {
 
 // showAll Comment
 export const fetchAllComment = async (req, resp) => {
-  const { post_id } = req.params;
+  const comments = await prisma.comment.findMany();
 
   try {
-  const comments = await prisma.comment.findMany({
-    where:{
-      post_id:Number(post_id),
-    },
-    orderBy:{
-      created_at: "desc",
-    },
-    include:{
-      user:true,
-    }
-  });
-
     return resp.json({ status: 200, success: true, data: comments });
   } catch (error) {
     console.error(error);

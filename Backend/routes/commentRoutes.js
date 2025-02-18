@@ -7,6 +7,6 @@ import {
 const commentRouter = Router();
 
 commentRouter.post("/", createComment);
-commentRouter.get("/:post_id", fetchAllComment);
+commentRouter.get("/", fetchAllComment);
 
 export default commentRouter;
