@@ -4,39 +4,17 @@ import { StoreContext } from "../../context/storeContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Comment = ({ isOpen, onClose, comments, post_id }) => {
-  const [comment, setComment] = useState("");
-  const [commentList, setCommentList] = useState(comments || []);
-
-  const { getDaysAgo } = useContext(StoreContext);
+const Comment = ({ isOpen, onClose, post_id }) => {
+  const { getDaysAgo, handleCommentSubmit, comment, setComment,getComment,
+    showComment} =
+    useContext(StoreContext);
 
   if (!isOpen) return null;
+  if(isOpen){
+    getComment(post_id);
+  }
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  const handleCommentSubmit = async (e) => {
-    e.preventDefault();
-    if (!comment.trim()) return;
-
-    const newComment = {
-      post_id: post_id,
-      user_id: user.id,
-      comment: comment,
-    };
-
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/comment",
-        newComment
-      );
-      if (response.data.success) {
-        setComment("");
-      }
-    } catch (error) {
-      console.error("Error creating comment:", error);
-    }
-  };
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-zinc-800 rounded-2xl w-full max-w-2xl max-h-[80vh] overflow-hidden shadow-xl animate-in fade-in duration-200">
@@ -55,8 +33,8 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
 
         {/* Display Comments */}
         <div className="p-4 overflow-y-auto max-h-[60vh] space-y-6">
-          {commentList.length > 0 ? (
-            commentList.map((comment) => (
+          {showComment.length > 0 ? (
+            showComment.map((comment) => (
               <div key={comment.id} className="flex gap-4 group">
                 <div
                   className="h-8 w-8 flex justify-center items-center text-white bg-blue-500 rounded-full text-2xl font-bold object-cover ring-2 ring-white dark:ring-zinc-700 cursor-pointer"
@@ -90,7 +68,7 @@ const Comment = ({ isOpen, onClose, comments, post_id }) => {
 
         {/* Comment Input */}
         <form
-          onSubmit={handleCommentSubmit}
+          onSubmit={(e)=>handleCommentSubmit(e,post_id)}
           className="p-4 border-t border-zinc-200 dark:border-zinc-700 bg-white/50 dark:bg-zinc-800/50"
         >
           <div className="flex gap-4">
