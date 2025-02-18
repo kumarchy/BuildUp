@@ -44,7 +44,7 @@ const Content = () => {
                   <div className="flex-1 space-y-4">
                     <Link to="/projectDetail" className="h-64 md:h-80 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-700 cursor-pointer">
                       <img
-                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop"
+                        src={project.image_url}
                         alt="Project Preview"
                         className="h-full w-full object-cover"
                       />
