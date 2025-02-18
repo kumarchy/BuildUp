@@ -1,22 +1,60 @@
-import { Heart, MessageCircle, ThumbsDown, ExternalLink } from "lucide-react";
+import { Heart, MessageCircle, ThumbsDown } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../context/storeContext";
 import { useNavigate, Link } from "react-router-dom";
 import Comment from "../Comment/Comment";
 
 const Content = () => {
-  const { showAllPost, fetchAllPosts } = useContext(StoreContext);
+  const {
+    showAllPost,
+    fetchAllPosts,
+    getDaysAgo,
+    createLike,
+    getLikeCount,
+    likesCount,
+  } = useContext(StoreContext);
+
   const [openCommentPostId, setOpenCommentPostId] = useState(null);
+  const [likedPosts, setLikedPosts] = useState({});
+  const [dislikedPosts, setDislikedPosts] = useState({});
+
+  const navigate = useNavigate();
+
+  const handleLike = (post_id) => {
+    setLikedPosts((prev) => ({
+      ...prev,
+      [post_id]: !prev[post_id], // Toggle like state
+    }));
+
+    setDislikedPosts((prev) => ({
+      ...prev,
+      [post_id]: false, // Reset dislike if liked
+    }));
+
+    createLike(post_id, "LIKE");
+    getLikeCount(post_id);
+  };
+
+  const handleDislike = (post_id) => {
+    setDislikedPosts((prev) => ({
+      ...prev,
+      [post_id]: !prev[post_id], // Toggle dislike state
+    }));
+
+    setLikedPosts((prev) => ({
+      ...prev,
+      [post_id]: false, // Reset like if disliked
+    }));
+
+    createLike(post_id, "DISLIKE");
+    getLikeCount(post_id);
+  };
 
   useEffect(() => {
     if (!showAllPost) {
       fetchAllPosts();
     }
   }, [showAllPost, fetchAllPosts]);
-
-  const navigate = useNavigate();
-
-  const{getDaysAgo} = useContext(StoreContext); 
 
   return (
     <div className="min-h-screen overflow-x-hidden flex flex-col gap-4 bg-zinc-100 p-4 md:p-8 dark:bg-zinc-900">
@@ -78,20 +116,56 @@ const Content = () => {
 
                   {/* Action Buttons */}
                   <div className="flex items-center justify-between gap-2 w-full flex-nowrap overflow-hidden">
-                    <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                      <Heart className="h-4 w-4" />
-                      <span className="hidden sm:block">Like</span>
-                    </button>
-                    <button className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                      <ThumbsDown className="h-4 w-4" />
-                      <span className="hidden sm:block">Dislike</span>
-                    </button>
-                    <button  onClick={() =>
-                    setOpenCommentPostId(openCommentPostId === project.id ? null : project.id)
-                  } className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0">
-                      <MessageCircle className="h-4 w-4" />
-                      <span className="hidden sm:block">Comment</span>
-                    </button>
+                    <div className="flex flex-col justify-center items-center">
+                      <button
+                        className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
+                        onClick={() => handleLike(project.id)}
+                      >
+                        <Heart
+                          className={`h-4 w-4 ${
+                            likedPosts[project.id] ? "fill-blue-500" : "fill-none"
+                          }`}
+                        />
+                        <span className="hidden sm:block">Like</span>
+                      </button>
+                      <p className="text-white underline">
+                        {likesCount[project.id]?.likes || 0}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col justify-center items-center">
+                      <button
+                        className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
+                        onClick={() => handleDislike(project.id)}
+                      >
+                        <ThumbsDown
+                          className={`h-4 w-4 ${
+                            dislikedPosts[project.id] ? "fill-blue-500" : "fill-none"
+                          }`}
+                        />
+                        <span className="hidden sm:block">Dislike</span>
+                      </button>
+                      <p className="text-white underline">
+                        {likesCount[project.id]?.dislikes || 0}
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col justify-center items-center">
+                      <button
+                        onClick={() =>
+                          setOpenCommentPostId(
+                            openCommentPostId === project.id ? null : project.id
+                          )
+                        }
+                        className="flex items-center gap-1 rounded-lg px-1 md:px-2 py-1 text-xs md:text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-700 shrink-0"
+                      >
+                        <MessageCircle className="h-4 w-4" />
+                        <span className="hidden sm:block">Comment</span>
+                      </button>
+                      <p className="text-white underline">
+                        {project.comment_count} comments
+                      </p>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -106,7 +180,6 @@ const Content = () => {
             )}
           </div>
         ))}
-        
     </div>
   );
 };
