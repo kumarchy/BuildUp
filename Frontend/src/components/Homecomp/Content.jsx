@@ -87,7 +87,7 @@ const Content = () => {
                       <img
                         src={project.image_url}
                         alt="Project Preview"
-                        className="h-full w-full object-cover"
+                        className="h-auto max-h-[300px] w-full object-cover"
                       />
                     </Link>
                   </div>
@@ -123,9 +123,7 @@ const Content = () => {
                       >
                         <Heart
                           className={`h-4 w-4 ${
-                            likedPosts[project.id]
-                              ? "fill-blue-500"
-                              : "fill-none"
+                            likedPosts[project.id] ? "fill-blue-500" : "fill-none"
                           }`}
                         />
                         <span className="hidden sm:block">Like</span>
@@ -142,9 +140,7 @@ const Content = () => {
                       >
                         <ThumbsDown
                           className={`h-4 w-4 ${
-                            dislikedPosts[project.id]
-                              ? "fill-blue-500"
-                              : "fill-none"
+                            dislikedPosts[project.id] ? "fill-blue-500" : "fill-none"
                           }`}
                         />
                         <span className="hidden sm:block">Dislike</span>
