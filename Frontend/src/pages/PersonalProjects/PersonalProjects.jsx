@@ -6,43 +6,43 @@ import { useParams } from "react-router-dom";
 import { StoreContext } from "../../context/storeContext";
 
 const PersonalProjects = () => {
-  const [deleteBoxVisibleFor, setDeleteBoxVisibleFor] = useState(null); 
-  
+  const [deleteBoxVisibleFor, setDeleteBoxVisibleFor] = useState(null);
+
   const { userId } = useParams();
-  
+
   const { showPersonalPost, showProjects, deleteProjects } =
     useContext(StoreContext);
 
-    useEffect(() => {
-      if (userId) {
-        if (!showPersonalPost.length) {
-          showProjects(userId); 
-        }
+  useEffect(() => {
+    if (userId) {
+      if (!showPersonalPost.length) {
+        showProjects(userId);
       }
-    }, [userId, showProjects, showPersonalPost.length]);
+    }
+  }, [userId, showProjects, showPersonalPost.length]);
 
   const handleVerticleElipse = (id) => {
-    setDeleteBoxVisibleFor((prev) => (prev === id ? null : id)); 
+    setDeleteBoxVisibleFor((prev) => (prev === id ? null : id));
   };
 
   const handleDeleteClick = (projectId) => {
     deleteProjects(projectId);
-    setDeleteBoxVisibleFor(null); 
+    setDeleteBoxVisibleFor(null);
   };
 
   return (
     <div className="flex flex-col items-center dark:bg-zinc-900">
       <div className="md:w-[70%] w-[95%]">
-      {showPersonalPost.length > 0 && (
-        <div className="flex gap-5 items-center mt-5 dark:bg-zinc-800 pt-8 pb-8">
-          <div className="flex justify-center items-center md:h-20 md:w-20 h-16 w-16 bg-purple-600 rounded-full text-4xl font-semibold text-white ml-5">
-            {showPersonalPost[0]?.user?.name?.charAt(0).toUpperCase() || "U"}
+        {showPersonalPost.length > 0 && (
+          <div className="flex gap-5 items-center mt-5 dark:bg-zinc-800 pt-8 pb-8">
+            <div className="flex justify-center items-center md:h-20 md:w-20 h-16 w-16 bg-purple-600 rounded-full text-4xl font-semibold text-white ml-5">
+              {showPersonalPost[0]?.user?.name?.charAt(0).toUpperCase() || "U"}
+            </div>
+            <h1 className="md:text-4xl font-bold text-white text-2xl">
+              {showPersonalPost[0]?.user?.name || "Unknown User"}
+            </h1>
           </div>
-          <h1 className="md:text-4xl font-bold text-white text-2xl">
-            {showPersonalPost[0]?.user?.name || "Unknown User"}
-          </h1>
-        </div>
-      )}
+        )}
         <div className="mt-8 flex justify-start flex-col gap-4">
           {/* Projects */}
           {showPersonalPost &&
@@ -58,7 +58,7 @@ const PersonalProjects = () => {
                       <div className="flex-1 space-y-4">
                         <div className="h-64 md:h-80 overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-700">
                           <img
-                            src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop"
+                            src={project.image_url}
                             alt="Project Preview"
                             className="h-full w-full object-cover"
                           />
