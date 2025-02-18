@@ -1,18 +1,39 @@
 import e from "express";
 import prisma from "../db/db.config.js";
+import cloudinary from "./cloudinary.js";
 
 // create a post
 export const createPost = async (req, resp) => {
-  const { user_id, title, description, techStack, githubLink, deployedLink, image_url} =
-    req.body;
+  const {
+    user_id,
+    title,
+    description,
+    techStack,
+    githubLink,
+    deployedLink,
+    image_url,
+  } = req.body;
 
-  if (!title || !description || !techStack || !githubLink || !deployedLink ||!image_url) {
+  if (
+    !title ||
+    !description ||
+    !techStack ||
+    !githubLink ||
+    !deployedLink ||
+    !image_url
+  ) {
     return resp.json({
       status: 400,
       success: false,
       message: "Enter the required field",
     });
   }
+
+  const cloudinary_res = await cloudinary.uploader.upload(image_url, {
+    folder: "/BuildUp-collection",
+  });
+
+  console.log(cloudinary_res);
 
   try {
     const newPost = await prisma.post.create({
@@ -23,7 +44,7 @@ export const createPost = async (req, resp) => {
         techStack: techStack,
         githubLink: githubLink,
         deployedLink: deployedLink,
-        image_url: image_url
+        image_url: image_url,
       },
     });
 
@@ -78,7 +99,7 @@ export const fetchAllPost = async (req, resp) => {
 
 // show perticular post comment
 export const showPost = async (req, resp) => {
-  const {user_id} = req.params;
+  const { user_id } = req.params;
 
   try {
     const posts = await prisma.post.findMany({
@@ -156,7 +177,7 @@ export const searchPost = async (req, resp) => {
       where: search
         ? {
             title: {
-              contains: search.trim(),  
+              contains: search.trim(),
               mode: "insensitive",
             },
           }
